@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="bomberman-server" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/bomberman-server" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/bomberman-server" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
+		<Unit filename="Engine/EventEngine/EventEngine.cpp" />
+		<Unit filename="Engine/EventEngine/EventEngine.h" />
+		<Unit filename="Engine/EventEngine/IEventListener.h" />
+		<Unit filename="Engine/Exception/Exception.h" />
+		<Unit filename="Engine/Exception/ExceptionBadRessource.cpp" />
+		<Unit filename="Engine/Exception/ExceptionBadRessource.h" />
+		<Unit filename="Engine/Exception/ExceptionConnect.cpp" />
+		<Unit filename="Engine/Exception/ExceptionConnect.h" />
+		<Unit filename="Engine/Exception/ExceptionInvalidSocket.cpp" />
+		<Unit filename="Engine/Exception/ExceptionInvalidSocket.h" />
+		<Unit filename="Engine/Exception/ExceptionListen.cpp" />
+		<Unit filename="Engine/Exception/ExceptionListen.h" />
+		<Unit filename="Engine/Exception/ExceptionMutex.cpp" />
+		<Unit filename="Engine/Exception/ExceptionMutex.h" />
+		<Unit filename="Engine/Exception/ExceptionNoEngine.cpp" />
+		<Unit filename="Engine/Exception/ExceptionNoEngine.h" />
+		<Unit filename="Engine/Exception/ExceptionNoFileFound.cpp" />
+		<Unit filename="Engine/Exception/ExceptionNoFileFound.h" />
+		<Unit filename="Engine/Exception/ExceptionNoLoader.cpp" />
+		<Unit filename="Engine/Exception/ExceptionNoLoader.h" />
+		<Unit filename="Engine/Exception/ExceptionNoRessource.cpp" />
+		<Unit filename="Engine/Exception/ExceptionNoRessource.h" />
+		<Unit filename="Engine/Exception/ExceptionRecv.cpp" />
+		<Unit filename="Engine/Exception/ExceptionRecv.h" />
+		<Unit filename="Engine/Exception/ExceptionSelect.cpp" />
+		<Unit filename="Engine/Exception/ExceptionSelect.h" />
+		<Unit filename="Engine/Exception/ExceptionSend.cpp" />
+		<Unit filename="Engine/Exception/ExceptionSend.h" />
+		<Unit filename="Engine/Exception/ExceptionUnknowHost.cpp" />
+		<Unit filename="Engine/Exception/ExceptionUnknowHost.h" />
+		<Unit filename="Engine/GraphicEngine/Camera.cpp" />
+		<Unit filename="Engine/GraphicEngine/Camera.h" />
+		<Unit filename="Engine/GraphicEngine/Cube.cpp" />
+		<Unit filename="Engine/GraphicEngine/Cube.h" />
+		<Unit filename="Engine/GraphicEngine/Fire.cpp" />
+		<Unit filename="Engine/GraphicEngine/Fire.h" />
+		<Unit filename="Engine/GraphicEngine/GraphicEngine.cpp" />
+		<Unit filename="Engine/GraphicEngine/GraphicEngine.h" />
+		<Unit filename="Engine/GraphicEngine/Meshe.cpp" />
+		<Unit filename="Engine/GraphicEngine/Meshe.h" />
+		<Unit filename="Engine/GraphicEngine/Object.cpp" />
+		<Unit filename="Engine/GraphicEngine/Object.h" />
+		<Unit filename="Engine/GraphicEngine/ObjectData.cpp" />
+		<Unit filename="Engine/GraphicEngine/ObjectData.h" />
+		<Unit filename="Engine/GraphicEngine/ObjectMovable.cpp" />
+		<Unit filename="Engine/GraphicEngine/ObjectMovable.h" />
+		<Unit filename="Engine/GraphicEngine/OpenGL2.cpp" />
+		<Unit filename="Engine/GraphicEngine/OpenGL2.h" />
+		<Unit filename="Engine/GraphicEngine/Scene.cpp" />
+		<Unit filename="Engine/GraphicEngine/Scene.h" />
+		<Unit filename="Engine/GraphicEngine/Text/ManagerFont.cpp" />
+		<Unit filename="Engine/GraphicEngine/Text/ManagerFont.h" />
+		<Unit filename="Engine/GraphicEngine/Text/ManagerText.cpp" />
+		<Unit filename="Engine/GraphicEngine/Text/ManagerText.h" />
+		<Unit filename="Engine/GraphicEngine/Text/libText/exemple.cpp" />
+		<Unit filename="Engine/GraphicEngine/Text/libText/exemple.h" />
+		<Unit filename="Engine/GraphicEngine/Text/libText/polices.cpp" />
+		<Unit filename="Engine/GraphicEngine/Text/libText/polices.h" />
+		<Unit filename="Engine/Loader/Loader.h" />
+		<Unit filename="Engine/Loader/LoaderMusic.cpp" />
+		<Unit filename="Engine/Loader/LoaderMusic.h" />
+		<Unit filename="Engine/Loader/LoaderObject.cpp" />
+		<Unit filename="Engine/Loader/LoaderObject.h" />
+		<Unit filename="Engine/Loader/LoaderSample.cpp" />
+		<Unit filename="Engine/Loader/LoaderSample.h" />
+		<Unit filename="Engine/Loader/LoaderSound.cpp" />
+		<Unit filename="Engine/Loader/LoaderSound.h" />
+		<Unit filename="Engine/Loader/LoaderTexture.cpp" />
+		<Unit filename="Engine/Loader/LoaderTexture.h" />
+		<Unit filename="Engine/MainEngine.cpp" />
+		<Unit filename="Engine/MainEngine.h" />
+		<Unit filename="Engine/ManagerRessource.cpp" />
+		<Unit filename="Engine/ManagerRessource.h" />
+		<Unit filename="Engine/Model.cpp" />
+		<Unit filename="Engine/Model.h" />
+		<Unit filename="Engine/NetworkEngine/IObserverSocketAccept.h" />
+		<Unit filename="Engine/NetworkEngine/IObserverSocketRecv.h" />
+		<Unit filename="Engine/NetworkEngine/Socket.cpp" />
+		<Unit filename="Engine/NetworkEngine/Socket.h" />
+		<Unit filename="Engine/Ressource.cpp" />
+		<Unit filename="Engine/Ressource.h" />
+		<Unit filename="Engine/Sound.cpp" />
+		<Unit filename="Engine/Sound.h" />
+		<Unit filename="Engine/SoundEngine/SoundEngine.cpp" />
+		<Unit filename="Engine/SoundEngine/SoundEngine.h" />
+		<Unit filename="Engine/Text.cpp" />
+		<Unit filename="Engine/Text.h" />
+		<Unit filename="Engine/Texture.cpp" />
+		<Unit filename="Engine/Texture.h" />
+		<Unit filename="Engine/test/testEngineSound.cpp" />
+		<Unit filename="Engine/test/testEngineSound.h" />
+		<Unit filename="Engine/test/testEventEngine.cpp" />
+		<Unit filename="Engine/test/testEventEngine.h" />
+		<Unit filename="Engine/test/testGraphicEngine.cpp" />
+		<Unit filename="Engine/test/testGraphicEngine.h" />
+		<Unit filename="Engine/test/testMapLoader.cpp" />
+		<Unit filename="Engine/test/testMapLoader.h" />
+		<Unit filename="Engine/test/testSocket.cpp" />
+		<Unit filename="Engine/test/testSocket.h" />
+		<Unit filename="Engine/test/testText.cpp" />
+		<Unit filename="Engine/test/testText.h" />
+		<Unit filename="Engine/test/testThreadable.cpp" />
+		<Unit filename="Engine/test/testThreadable.h" />
+		<Unit filename="Engine/test/testTimer.cpp" />
+		<Unit filename="Engine/test/testTimer.h" />
+		<Unit filename="Engine/util/IObserverTimer.h" />
+		<Unit filename="Engine/util/Threadable.cpp" />
+		<Unit filename="Engine/util/Threadable.h" />
+		<Unit filename="Engine/util/Timer.cpp" />
+		<Unit filename="Engine/util/Timer.h" />
+		<Unit filename="Engine/util/windows.h" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
