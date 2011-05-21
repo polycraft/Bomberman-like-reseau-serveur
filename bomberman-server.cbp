@@ -31,6 +31,8 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="CollisionDetector.cpp" />
+		<Unit filename="CollisionDetector.h" />
 		<Unit filename="Engine/EventEngine/EventEngine.cpp" />
 		<Unit filename="Engine/EventEngine/EventEngine.h" />
 		<Unit filename="Engine/EventEngine/IEventListener.h" />
@@ -142,6 +144,32 @@
 		<Unit filename="Engine/util/Timer.cpp" />
 		<Unit filename="Engine/util/Timer.h" />
 		<Unit filename="Engine/util/windows.h" />
+		<Unit filename="Loader/LoaderMap.cpp" />
+		<Unit filename="Loader/LoaderMap.h" />
+		<Unit filename="Map.cpp" />
+		<Unit filename="Map.h" />
+		<Unit filename="Server.cpp" />
+		<Unit filename="Server.h" />
+		<Unit filename="Type/Bomb.cpp" />
+		<Unit filename="Type/Bomb.h" />
+		<Unit filename="Type/Bomberman.cpp" />
+		<Unit filename="Type/Bomberman.h" />
+		<Unit filename="Type/Bonus.cpp" />
+		<Unit filename="Type/Bonus.h" />
+		<Unit filename="Type/BreakableBloc.cpp" />
+		<Unit filename="Type/BreakableBloc.h" />
+		<Unit filename="Type/Explosion.cpp" />
+		<Unit filename="Type/Explosion.h" />
+		<Unit filename="Type/ExplosionFlare.cpp" />
+		<Unit filename="Type/ExplosionFlare.h" />
+		<Unit filename="Type/ManagerExplosion.cpp" />
+		<Unit filename="Type/ManagerExplosion.h" />
+		<Unit filename="Type/Property.h" />
+		<Unit filename="Type/StaticBloc.cpp" />
+		<Unit filename="Type/StaticBloc.h" />
+		<Unit filename="Type/Type.cpp" />
+		<Unit filename="Type/Type.h" />
+		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />
 			<debugger />
