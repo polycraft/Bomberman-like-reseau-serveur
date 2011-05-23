@@ -10,9 +10,6 @@ public:
 	StaticBloc();
 	~StaticBloc();
 	EType getType();
-
-private:
-	static Cube* staticBloc;
 };
 
 

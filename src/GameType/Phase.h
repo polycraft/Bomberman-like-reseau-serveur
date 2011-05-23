@@ -1,0 +1,40 @@
+#ifndef PHASE_H
+#define PHASE_H
+
+#include "../CollisionDetector.h"
+#include "GameType.h"
+
+using namespace Engine;
+
+typedef enum EEtat
+{
+    E_Current=0,
+    E_Next=1,
+    E_Init,
+    E_Run
+} EEtat;
+
+class Phase
+{
+
+public:
+	Phase(CollisionDetector *collision);
+	virtual ~Phase(){};
+	virtual void init()=0;
+	virtual void run()=0;
+	void end( int next=1);
+	void nextEtat();
+	void setCollisionDetector(CollisionDetector *collision);
+
+    int update();
+protected:
+    CollisionDetector *collision;
+
+private:
+	EEtat etat;
+	int next;
+};
+
+
+
+#endif // PHASE_H

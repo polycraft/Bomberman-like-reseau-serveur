@@ -1,19 +1,14 @@
 #include "Bomberman.h"
 #include "../Engine/util/Timer.h"
 
-Bomberman::Bomberman(map<EPropertyBomberman,Property*>& property):name(TT_Text3D)
+Bomberman::Bomberman(Socket *sock,map<EPropertyBomberman,Property*>& property):socket(sock)
 {
     this->property=property;
 }
 
-Bomberman::Bomberman(int id):name(TT_Text3D)
+Bomberman::Bomberman(Socket *sock,int id):socket(sock)
 {
 	this->property[PB_id]=new Property(id);
-
-	this->attach(ManagerRessource::getRessource("src/ressource/object/bombermanPause.obj"),
-		ManagerRessource::getRessource("src/ressource/texture/bomberman.jpg"));
-	//chargement de sa position courir
-	ManagerRessource::getRessource("src/ressource/object/bombermanRun.obj");
 }
 
 Bomberman::~Bomberman()
@@ -29,18 +24,6 @@ Bomberman::~Bomberman()
 EType Bomberman::getType()
 {
 	return T_Bomberman;
-}
-
-void Bomberman::setRunning()
-{
-	this->attach(ManagerRessource::getRessource("src/ressource/object/bombermanRun.obj"),
-		ManagerRessource::getRessource("src/ressource/texture/bomberman.jpg"));
-}
-
-void Bomberman::setPause()
-{
-		this->attach(ManagerRessource::getRessource("src/ressource/object/bombermanPause.obj"),
-		ManagerRessource::getRessource("src/ressource/texture/bomberman.jpg"));
 }
 
 void Bomberman::updateTimer(unsigned int delay)
@@ -76,25 +59,4 @@ void Bomberman::setInvinsible(int time)
 void Bomberman::lostLife(int nb)
 {
     setProperty<int>(PB_life,getProperty<int>(PB_life)-nb);
-}
-
-void Bomberman::setName(string &name)
-{
-    this->name.setText(name);
-}
-
-void Bomberman::setName(char *name)
-{
-    this->name.setText(name);
-}
-
-Text* Bomberman::getName()
-{
-    return &this->name;
-}
-
-void Bomberman::setCoordonnes(double x,double y,double z)
-{
-    ObjectMovable::setCoordonnes(x,y,z);
-    this->name.setCoord(x,y,z+2.5);
 }

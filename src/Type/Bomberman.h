@@ -7,6 +7,8 @@ class Bomberman;
 #include "Property.h"
 #include "../Engine/util/IObserverTimer.h"
 #include "../Engine/Text.h"
+#include "../Engine/NetworkEngine/Socket.h"
+#include "../Engine/NetworkEngine/IObserverSocketRecv.h"
 
 typedef enum EPropertyBomberman
 {
@@ -28,8 +30,8 @@ class Bomberman : public Type, public IObserverTimer
 {
 
 public:
-    Bomberman(map<EPropertyBomberman,Property*>& property);
-	Bomberman(int id);
+    Bomberman(Socket *sock, map<EPropertyBomberman,Property*>& property);
+	Bomberman(Socket *sock, int id);
 	~Bomberman();
 	EType getType();
 
@@ -53,22 +55,14 @@ public:
         }
     }
 
-	void setRunning();
-	void setPause();
-
 	void updateTimer(unsigned int delay);
 
 	void setInvinsible(int time);
 	void lostLife(int nb=1);
-
-	virtual void setCoordonnes(double x,double y,double z);
-
-    void setName(string &name);
-    void setName(char *name);
-    Text* getName();
 protected:
     map<EPropertyBomberman,Property*> property;
-    Text name;
+    Thread* thread;
+    Socket* socket;
 };
 
 

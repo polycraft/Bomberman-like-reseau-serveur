@@ -32,7 +32,6 @@ class ManagerExplosion : public IObserverTimer
 		GameType *gameType;
 		int nbEnd;
 		int nbExploSide;
-
 };
 
 

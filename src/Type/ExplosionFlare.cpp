@@ -21,7 +21,7 @@ ExplosionFlare::ExplosionFlare(int x, int y, int id, int speed, int power, EExpl
 	{
 	    this->powercurrent=0;
 		this->listeExplosions.push_back(new Explosion(T_Emitter,x,y));
-		this->gameType->getGame()->getMap()->addObject(this->listeExplosions.back(),this->x,this->y, T_Dyn);
+		this->gameType->getServer()->getMap()->addObject(this->listeExplosions.back(),this->x,this->y, T_Dyn);
 	}
 	else
 	{
@@ -38,7 +38,7 @@ ExplosionFlare::~ExplosionFlare()
 	while(it < this->listeExplosions.end())
 	{
 		(*it)->destroy();
-		this->gameType->getGame()->getMap()->set(NULL,(*it)->getX(),(*it)->getY());
+		this->gameType->getServer()->getMap()->set(NULL,(*it)->getX(),(*it)->getY());
 		it++;
 	}
 }
@@ -74,7 +74,7 @@ void ExplosionFlare::nextExplose()
 		}
 
         this->listeExplosions.push_back(new Explosion(T_End,x,y));
-        this->gameType->getGame()->getMap()->addObject(this->listeExplosions.back(),x,y, T_Dyn);
+        this->gameType->getServer()->getMap()->addObject(this->listeExplosions.back(),x,y, T_Dyn);
 
 
 

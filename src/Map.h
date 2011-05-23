@@ -39,14 +39,12 @@ public:
 	void addBomberman(Bomberman *bomberman,SCoordinate coord);
 	void addObject(Type* object, int x, int y, EScene scene);
 	void addSpawn(int x, int y);
-	Scene* getScene(EScene scene);
 	SCoordinate getSpawn(int id);
 	int getWidth();
 	int getHeight();
 	Type* get(int x,int y);
 	void set(Type* object,int x,int y);
 	void setEngine(MainEngine* engine);
-	void buildScenes();
 
 private:
 	int gameType;

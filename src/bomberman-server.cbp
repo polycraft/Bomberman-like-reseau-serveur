@@ -8,12 +8,24 @@
 		<Build>
 			<Target title="Debug">
 				<Option output="bin/Debug/bomberman-server" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../" />
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
+					<Add option="-w" />
 					<Add option="-g" />
+					<Add option="`freetype-config --cflags --libs`" />
+					<Add option="`sdl-config --cflags --libs`" />
 				</Compiler>
+				<Linker>
+					<Add library="SDL" />
+					<Add library="GL" />
+					<Add library="/usr/local/lib/libfmodex-4.34.02.so" />
+					<Add library="GLU" />
+					<Add library="SDL_image" />
+					<Add library="freetype" />
+				</Linker>
 			</Target>
 			<Target title="Release">
 				<Option output="bin/Release/bomberman-server" prefix_auto="1" extension_auto="1" />

@@ -11,9 +11,6 @@ public:
 	~BreakableBloc();
 	EType getType();
 
-private:
-	static Cube* Breakbloc;
-
 
 };
 
