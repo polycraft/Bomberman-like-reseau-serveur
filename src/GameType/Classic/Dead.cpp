@@ -26,7 +26,7 @@ namespace GameTypeSpace
 
 		}
 
-		void Dead::updateRecv(Socket *socket,const char*s,int size)
+		void Dead::updateRecv(Socket *socket,Paquet &paquet)
 		{
 
 		}

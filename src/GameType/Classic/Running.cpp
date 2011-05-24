@@ -27,7 +27,7 @@ namespace GameTypeSpace
 
 		}
 
-		void Running::updateRecv(Socket *socket,const char*s,int size)
+		void Running::updateRecv(Socket *socket,Paquet &paquet)
 		{
 
 		}

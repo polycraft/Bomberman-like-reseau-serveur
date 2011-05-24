@@ -26,16 +26,16 @@ typedef enum EPropertyBomberman
     PB_timeInvinsible=11
 } EPropertyBomberman;
 
-class Bomberman : public Type, public IObserverTimer
+class Bomberman : public Type, public IObserverTimer,public IObserverSocketRecv
 {
 
 public:
     Bomberman(Socket *sock, map<EPropertyBomberman,Property*>& property);
-	Bomberman(Socket *sock, int id);
-	~Bomberman();
-	EType getType();
+    Bomberman(Socket *sock, int id);
+    ~Bomberman();
+    EType getType();
 
-	template <typename T>const T& getProperty(EPropertyBomberman prop)
+    template <typename T>const T& getProperty(EPropertyBomberman prop)
     {
         return this->property[prop]->getValue<T>();
     }
@@ -55,14 +55,18 @@ public:
         }
     }
 
-	void updateTimer(unsigned int delay);
+    void updateTimer(unsigned int delay);
 
-	void setInvinsible(int time);
-	void lostLife(int nb=1);
+    void setInvinsible(int time);
+    void lostLife(int nb=1);
+
+    void updateRecv(Socket *sock,const char *str,int size);
+
 protected:
     map<EPropertyBomberman,Property*> property;
     Thread* thread;
     Socket* socket;
+    bool stop;
 };
 
 

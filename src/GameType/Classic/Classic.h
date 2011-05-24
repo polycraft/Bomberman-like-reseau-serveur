@@ -43,7 +43,7 @@ namespace GameTypeSpace
 		void updateExplosion(ExplosionFlare *flare,int power,int x,int y);
         void destroyManagerExplosion(ManagerExplosion* manager);
 
-        void updateRecv(Socket *,const char*,int size);
+        void updateRecv(Socket *,Paquet &paquet);
 	private:
 		int partTime;
 		CollisionDetector *collision;

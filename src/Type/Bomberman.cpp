@@ -1,14 +1,16 @@
 #include "Bomberman.h"
 #include "../Engine/util/Timer.h"
 
-Bomberman::Bomberman(Socket *sock,map<EPropertyBomberman,Property*>& property):socket(sock)
+Bomberman::Bomberman(Socket *sock,map<EPropertyBomberman,Property*>& property):socket(sock),stop(false)
 {
     this->property=property;
+    thread = sock->run(&stop);
 }
 
-Bomberman::Bomberman(Socket *sock,int id):socket(sock)
+Bomberman::Bomberman(Socket *sock,int id):socket(sock),stop(false)
 {
 	this->property[PB_id]=new Property(id);
+	thread = sock->run(&stop);
 }
 
 Bomberman::~Bomberman()
@@ -19,6 +21,8 @@ Bomberman::~Bomberman()
     {
         delete (*it).second;
     }
+    stop=true;
+    Threadable::join(thread);
 }
 
 EType Bomberman::getType()
@@ -59,4 +63,9 @@ void Bomberman::setInvinsible(int time)
 void Bomberman::lostLife(int nb)
 {
     setProperty<int>(PB_life,getProperty<int>(PB_life)-nb);
+}
+
+void Bomberman::updateRecv(Socket *sock,const char *str,int size)
+{
+
 }

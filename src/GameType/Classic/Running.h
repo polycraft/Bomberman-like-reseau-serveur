@@ -16,7 +16,7 @@ namespace GameTypeSpace
 			void init();
 			virtual void run();
 			virtual void updateTimer(unsigned int delay);
-			virtual void updateRecv(Socket *,const char*,int size);
+			virtual void updateRecv(Socket *,Paquet &paquet);
 		};
 	}
 }
