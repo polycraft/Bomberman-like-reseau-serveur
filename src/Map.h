@@ -1,6 +1,6 @@
 #ifndef MAP_H
 #define MAP_H
-
+class Map;
 #include "Type/Bomberman.h"
 #include "Type/Type.h"
 #include <vector>

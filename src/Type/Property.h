@@ -13,7 +13,7 @@ class Property
             delete value;
         }
 
-        template <typename T> const T& getValue()
+        template <typename T> const T& getValue() const
         {
             T* tmp=(T*)value;
             return *tmp;

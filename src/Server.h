@@ -1,5 +1,6 @@
 #ifndef GAME_H
 #define GAME_H
+class Server;
 #include "Engine/util/IObserverTimer.h"
 #include "Map.h"
 #include "Engine/MainEngine.h"

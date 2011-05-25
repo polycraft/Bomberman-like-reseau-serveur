@@ -1,13 +1,13 @@
 #include "Bomberman.h"
 #include "../Engine/util/Timer.h"
 
-Bomberman::Bomberman(Socket *sock,map<EPropertyBomberman,Property*>& property):socket(sock),stop(false)
+Bomberman::Bomberman(Socket *sock, GameType *gameType,map<EPropertyBomberman,Property*>& property):socket(sock),stop(false),gameType(gameType)
 {
     this->property=property;
     thread = sock->run(&stop);
 }
 
-Bomberman::Bomberman(Socket *sock,int id):socket(sock),stop(false)
+Bomberman::Bomberman(Socket *sock,GameType *gameType,int id):socket(sock),stop(false),gameType(gameType)
 {
 	this->property[PB_id]=new Property(id);
 	thread = sock->run(&stop);
@@ -65,7 +65,38 @@ void Bomberman::lostLife(int nb)
     setProperty<int>(PB_life,getProperty<int>(PB_life)-nb);
 }
 
-void Bomberman::updateRecv(Socket *sock,const char *str,int size)
+void Bomberman::updateRecv(Socket *sock,Paquet& paquet)
 {
+    char type=(paquet.getData())[0];
+    /*switch(type)
+    {
+        case 'b'://Bombe
+            PaquetBomb *paquetBomb=paquet.getData<PaquetBomb*>();
 
+            //Paquet provient bien du bon joueur
+            if(paquetBomb->idBomber==this->getProperty<int>(PB_id))
+            {
+                gameType->updateNetwork(this,paquet);
+            }
+        break;
+        case 'm'://Move
+            PaquetMove *paquetMove=paquet.getData<PaquetMove*>();
+
+            //Paquet provient bien du bon joueur
+            if(paquetMove->idBomber==this->getProperty<int>(PB_id))
+            {
+                gameType->updateNetwork(this,paquet);
+            }
+        break;
+    }*/
+}
+
+void Bomberman::sendData(Paquet &paquet)
+{
+    socket->sendData(paquet);
+}
+
+bool CompareBomberman::operator()(const Bomberman* a,const Bomberman *b)
+{
+    return a->getProperty<int>(PB_id)<b->getProperty<int>(PB_id);
 }

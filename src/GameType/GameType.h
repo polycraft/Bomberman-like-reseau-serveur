@@ -2,11 +2,16 @@
 #define GAMETYPE_H
 class Bomb;
 #include "../Type/Bomb.h"
+#include "../Type/Bomberman.h"
 #include "../Server.h"
 #include "../Type/ManagerExplosion.h"
 #include "../Type/ExplosionFlare.h"
+#include "../Engine/NetworkEngine/Socket.h"
+#include "../Engine/NetworkEngine/IObserverSocketAccept.h"
+#include "../Engine/NetworkEngine/IObserverSocketRecv.h"
+#include <set>
 
-class GameType
+class GameType : public IObserverSocketAccept
 {
 
 public:
@@ -17,11 +22,16 @@ public:
     virtual void updateExplosion(ExplosionFlare *flare,int power,int x,int y)=0;
     virtual void destroyManagerExplosion(ManagerExplosion* manager)=0;
     Server* getServer();
+    virtual void updateAccept(Socket* s);
+    virtual void updateNetwork(Bomberman* bomberman,Paquet& paquet);
 protected:
     Server* server;
+    Thread* thread;
+    Socket socket;
+    std::set<Bomberman*,CompareBomberman> playerNetwork;
+    bool stop;
 private:
 	int partTime;
-
 };
 
 

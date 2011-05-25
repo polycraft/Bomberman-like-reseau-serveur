@@ -1,6 +1,14 @@
 #ifndef BOMBERMAN_H
 #define BOMBERMAN_H
 class Bomberman;
+
+//Trie les bomberman par ordre d'id
+class CompareBomberman
+{
+    public:
+    bool operator()(const Bomberman* a,const Bomberman *b);
+};
+
 #include "Type.h"
 #include "../Map.h"
 #include <map>
@@ -9,6 +17,7 @@ class Bomberman;
 #include "../Engine/Text.h"
 #include "../Engine/NetworkEngine/Socket.h"
 #include "../Engine/NetworkEngine/IObserverSocketRecv.h"
+#include "../GameType/GameType.h"
 
 typedef enum EPropertyBomberman
 {
@@ -30,14 +39,14 @@ class Bomberman : public Type, public IObserverTimer,public IObserverSocketRecv
 {
 
 public:
-    Bomberman(Socket *sock, map<EPropertyBomberman,Property*>& property);
-    Bomberman(Socket *sock, int id);
+    Bomberman(Socket *sock, GameType *gameType,map<EPropertyBomberman,Property*>& property);
+    Bomberman(Socket *sock, GameType *gameType,int id);
     ~Bomberman();
     EType getType();
 
-    template <typename T>const T& getProperty(EPropertyBomberman prop)
+    template <typename T>const T& getProperty(EPropertyBomberman prop) const
     {
-        return this->property[prop]->getValue<T>();
+        return this->property.find(prop)->second->getValue<T>();
     }
 
     template <typename T> void setProperty(EPropertyBomberman prop,T val)
@@ -60,13 +69,15 @@ public:
     void setInvinsible(int time);
     void lostLife(int nb=1);
 
-    void updateRecv(Socket *sock,const char *str,int size);
+    void updateRecv(Socket *sock,Paquet &paquet);
+    void sendData(Paquet &paquet);
 
 protected:
     map<EPropertyBomberman,Property*> property;
     Thread* thread;
     Socket* socket;
     bool stop;
+    GameType *gameType;
 };
 
 
