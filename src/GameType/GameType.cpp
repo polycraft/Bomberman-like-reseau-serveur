@@ -22,7 +22,7 @@ void GameType::updateAccept(Socket* s)
     //Recherche d'un id libre
     int id=0;
 
-    for(std::set<Bomberman*>::iterator it=playerNetwork.begin(); it!=playerNetwork.end(); ++it)
+    for(std::set<Bomberman*,CompareBomberman>::iterator it=playerNetwork.begin(); it!=playerNetwork.end(); ++it)
     {
         if((*it)->getProperty<int>(PB_id)==id)
             id++;//id déjà utilisé
@@ -35,7 +35,7 @@ void GameType::updateAccept(Socket* s)
 }
 void GameType::updateNetwork(Bomberman* bomberman,Paquet& paquet)
 {
-    for(std::set<Bomberman*>::iterator it=playerNetwork.begin(); it!=playerNetwork.end(); ++it)
+    for(std::set<Bomberman*,CompareBomberman>::iterator it=playerNetwork.begin(); it!=playerNetwork.end(); ++it)
     {
         //Envoie du paquet à tout les joueurs sauf le joueur d'origine
         if((*it)->getProperty<int>(PB_id)!=bomberman->getProperty<int>(PB_id))
