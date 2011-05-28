@@ -44,3 +44,8 @@ void GameType::updateNetwork(Bomberman* bomberman,Paquet& paquet)
         }
     }
 }
+
+set<Bomberman*,CompareBomberman>& GameType::getPlayerNetwork()
+{
+    return playerNetwork;
+}

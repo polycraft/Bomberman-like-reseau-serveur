@@ -35,7 +35,7 @@ namespace GameTypeSpace
 
 		Bomberman* getPlayer();
 		void setPlayer(Bomberman*);
-		vector<Bomberman*>& getPlayerNetwork();
+		
 
         Phase* getPhase(ClassicSpace::EPhase phase);
 
@@ -49,7 +49,6 @@ namespace GameTypeSpace
 		CollisionDetector *collision;
 		ClassicSpace::EPhase phaseCurrent;
 		Bomberman *player;
-		vector<Bomberman*> playerNetwork;
 		Phase *phase[4];
 	};
 }

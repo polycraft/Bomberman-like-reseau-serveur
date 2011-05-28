@@ -24,6 +24,7 @@ public:
     Server* getServer();
     virtual void updateAccept(Socket* s);
     virtual void updateNetwork(Bomberman* bomberman,Paquet& paquet);
+	set<Bomberman*,CompareBomberman>& getPlayerNetwork();
 protected:
     Server* server;
     Thread* thread;

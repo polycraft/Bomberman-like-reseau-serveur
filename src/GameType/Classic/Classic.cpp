@@ -132,10 +132,7 @@ namespace GameTypeSpace
 	    player=bomber;
 	}
 
-    vector<Bomberman*>& Classic::getPlayerNetwork()
-    {
-        return playerNetwork;
-    }
+
 
     Phase* Classic::getPhase(EPhase phase)
     {
