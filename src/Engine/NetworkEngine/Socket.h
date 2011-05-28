@@ -121,8 +121,9 @@ class Socket : public Threadable
         void sendData(Paquet &paquet);
 		template<class T> void sendData(T *data)
 		{
-				this->sendData(static_cast<char*>(data),sizeof(T));
+				this->sendData(reinterpret_cast<char*>(data),sizeof(T));
 		}
+
         /**
         Reçoit une chaine
         **/

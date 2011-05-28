@@ -1,7 +1,6 @@
-#ifndef PAQUET_H
-#define PAQUET_H
+#ifndef PAQUET2_H
+#define PAQUET2_H
 
-#include "Bonus.h"
 
 /**
 Déclaration des différents types de paquet
@@ -84,8 +83,23 @@ typedef struct PaquetMap
     char type;//c
     int timePaquet;
     char name[50];//Nom de la map
-}PaquetSpawn;
+}PaquetMap;
+
+//Paquet de ping
+typedef struct PaquetPing
+{
+    char type;//g
+    int timePaquet;
+}PaquetPing;
+
+//Paquet de demande
+typedef struct PaquetAsk
+{
+    char type;//a
+    int timePaquet;
+    char paquet;//type du paquet à demander
+}PaquetAsk;
 
 
 
-#endif // PAQUET_H
+#endif // PAQUET2_H

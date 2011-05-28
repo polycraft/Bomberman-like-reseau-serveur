@@ -11,6 +11,7 @@ class Bomb;
 #include "../Engine/NetworkEngine/IObserverSocketRecv.h"
 #include <set>
 
+
 class GameType : public IObserverSocketAccept
 {
 
@@ -28,7 +29,7 @@ public:
 protected:
     Server* server;
     Thread* thread;
-    Socket socket;
+    Socket *socket;
     std::set<Bomberman*,CompareBomberman> playerNetwork;
     bool stop;
 private:

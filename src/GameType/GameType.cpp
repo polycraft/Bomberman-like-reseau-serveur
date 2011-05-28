@@ -1,10 +1,11 @@
 #include "GameType.h"
 
-GameType::GameType(Server *server,int partTime):partTime(partTime),server(server),socket(5000,TP_TCP)
+GameType::GameType(Server *server,int partTime):partTime(partTime),server(server)
 {
-    socket.addObserverAccept(this);
+	this->socket= new Socket(5000,TP_TCP);
+    socket->addObserverAccept(this);
     stop=false;
-    thread=socket.run(&stop);
+    thread=socket->run(&stop);
 }
 
 GameType::~GameType()

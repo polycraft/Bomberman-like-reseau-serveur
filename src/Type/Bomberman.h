@@ -71,6 +71,10 @@ public:
 
     void updateRecv(Socket *sock,Paquet &paquet);
     void sendData(Paquet &paquet);
+	template<class T> void sendData(T *data)
+		{
+				socket->sendData<T>(data);
+		}
 
 protected:
     map<EPropertyBomberman,Property*> property;

@@ -1,18 +1,22 @@
 #ifndef CLASSIC_H
 #define CLASSIC_H
 
-
+#include "../../Type/Paquet.h"
 #include "../GameType.h"
 #include "../../CollisionDetector.h"
 #include "../Phase.h"
 #include "../../Engine/NetworkEngine/IObserverSocketRecv.h"
+#include "../../Engine/NetworkEngine/Socket.h"
 #include "../../Type/ManagerExplosion.h"
 #include "../../Type/ExplosionFlare.h"
+
+
 
 namespace GameTypeSpace
 {
 	namespace ClassicSpace
 	{
+		
 	    typedef enum EPhase
 	    {
 	        P_Current=0,
@@ -44,7 +48,10 @@ namespace GameTypeSpace
         void destroyManagerExplosion(ManagerExplosion* manager);
 
         void updateRecv(Socket *,Paquet &paquet);
+
+		int getWaitingTime();
 	private:
+		int waitTime;
 		int partTime;
 		CollisionDetector *collision;
 		ClassicSpace::EPhase phaseCurrent;

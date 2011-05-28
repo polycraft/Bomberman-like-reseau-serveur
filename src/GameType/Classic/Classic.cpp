@@ -1,5 +1,6 @@
 #include "Classic.h"
 
+
 #include "Initialisation.h"
 #include "Running.h"
 #include "HurryUp.h"
@@ -8,9 +9,9 @@
 namespace GameTypeSpace
 {
     using namespace ClassicSpace;
-
 	Classic::Classic(Server *server):GameType(server,10)
 	{
+		this->waitTime = 1000;
 		this->player = NULL;
 	    phaseCurrent=P_Initialisation;
 
@@ -20,6 +21,9 @@ namespace GameTypeSpace
 	    phase[P_Running-2]=new Running(this,collision);
 	    phase[P_Dead-2]=new Dead(this,collision);
 	    phase[P_HurryUp-2]=new HurryUp(this,collision);
+		cout << "GameType Launched"<<endl;
+		cout << "--------------Initialisation Step--------------" << endl;
+		cout << "Waiting for players" << endl;
 	}
 
 	Classic::~Classic()
@@ -33,6 +37,7 @@ namespace GameTypeSpace
 
 	void Classic::update()
 	{
+		
 	    Phase* t=getPhase(phaseCurrent);
         EPhase nextPhase=static_cast<EPhase>(getPhase(phaseCurrent)->update());
         int tmp;
@@ -42,14 +47,23 @@ namespace GameTypeSpace
 
             break;
             case P_Next:
-                tmp=phaseCurrent+1;
-                phaseCurrent=static_cast<EPhase>(tmp);
+				{
+					tmp=phaseCurrent+1;
+					phaseCurrent=static_cast<EPhase>(tmp);
+
+					cout << "Phase Changed => Packet send" << endl;
+					PaquetPhase paquet = {'p', Timer::getTimer()->getTime() , phaseCurrent};
+					for(set<Bomberman*, CompareBomberman>::iterator it = this->playerNetwork.begin(); it !=this->playerNetwork.end(); it++)
+					{
+						(*it)->sendData<PaquetPhase>(&paquet);
+					}
+
+				}
             break;
             default:
                 phaseCurrent=nextPhase;
             break;
         }
-
 	}
 
 	void Classic::explode(Bomb* bomb,int speed,int power)
@@ -154,4 +168,9 @@ namespace GameTypeSpace
     {
         dynamic_cast<PhaseClassic*>(this->phase[phaseCurrent-2])->updateRecv(socket,paquet);
     }
+
+	int Classic::getWaitingTime()
+	{
+		return this->waitTime;
+	}
 }

@@ -16,13 +16,19 @@ namespace GameTypeSpace
 
 		void Initialisation::init()
 		{
-            this->nextEtat();
+			/*if(this->gameType->getPlayerNetwork().size() >= 2)
+			{*/
+				Timer::getTimer()->addListener(this,this->gameType->getWaitingTime());
+				cout << "Waiting " << this->gameType->getWaitingTime()/1000 << " secondes for Begin the Party !" << endl;
+				this->nextEtat();
+			//}			
 		}
 
 		void Initialisation::run()
 		{
+			
 		    Map *map=gameType->getServer()->getMap();
-
+			
 		    //Création du bomberman
 		    /*Bomberman *bomber=new Bomberman(0);
 		    bomber->setProperty<int>(PB_bombPower,2);
@@ -45,12 +51,18 @@ namespace GameTypeSpace
 		    this->gameType->getPlayerNetwork().push_back(bomber);
 		    map->addBomberman(bomber,map->getSpawn(1));*/
 
-		    end(P_Next);
+		    
 		}
 
 		void Initialisation::updateRecv(Socket *socket,Paquet &paquet)
 		{
 
+		}
+
+		void Initialisation::updateTimer(unsigned int delay)
+		{
+			Timer::getTimer()->removeListener(this,this->gameType->getWaitingTime());
+			end(P_Next);
 		}
 	}
 }

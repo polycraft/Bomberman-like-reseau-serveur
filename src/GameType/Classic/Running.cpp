@@ -14,12 +14,13 @@ namespace GameTypeSpace
 
 		void Running::init()
 		{
+			cout << "GameType is Running" << endl;
 		    this->nextEtat();
 		}
 
 		void Running::run()
 		{
-
+			
 		}
 
 		void Running::updateTimer(unsigned int delay)
