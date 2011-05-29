@@ -164,7 +164,7 @@ void Socket::runThread(bool *close)
             if(this->connection==TC_Server && this->protocole==TP_TCP)
             {
                 SOCKADDR_IN csin = { 0 };
-                int sinsize = sizeof csin;
+                socklen_t sinsize = sizeof csin;
                 SOCKET csock = accept(sock, (SOCKADDR *)&csin, &sinsize);
 
                 if(csock == SOCKET_ERROR)

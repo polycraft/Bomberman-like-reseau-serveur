@@ -194,6 +194,7 @@
 		<Unit filename="Type/ExplosionFlare.h" />
 		<Unit filename="Type/ManagerExplosion.cpp" />
 		<Unit filename="Type/ManagerExplosion.h" />
+		<Unit filename="Type/Paquet.h" />
 		<Unit filename="Type/Property.h" />
 		<Unit filename="Type/StaticBloc.cpp" />
 		<Unit filename="Type/StaticBloc.h" />
