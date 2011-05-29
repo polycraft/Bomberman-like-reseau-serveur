@@ -128,7 +128,12 @@ class Socket : public Threadable
         /**
         Reçoit une chaine
         **/
-        void recvData();
+        Paquet recvData();
+
+        /**
+        setter isSync
+        **/
+        void setIsSync(bool sync);
 
         /**
         #Gestion des observables
@@ -234,6 +239,11 @@ class Socket : public Threadable
             Type de protocole
             **/
             ETypeProtocole protocole;
+
+            /**
+            Type de connexion (synchrone ou asynchrone)
+            **/
+            bool isSync;
         /**
         #Fin gestion des sockets
         **/
