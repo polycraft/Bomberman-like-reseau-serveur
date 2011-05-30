@@ -9,9 +9,10 @@
 namespace GameTypeSpace
 {
     using namespace ClassicSpace;
-	Classic::Classic(Server *server):GameType(server,10)
+	Classic::Classic(Server *server,Socket *socket):GameType(server,10, socket)
 	{
-		this->waitTime = 1000;
+		this->partTime = 4000;
+		this->waitTime = 4000;
 		this->player = NULL;
 	    phaseCurrent=P_Initialisation;
 
@@ -48,15 +49,42 @@ namespace GameTypeSpace
             break;
             case P_Next:
 				{
-					tmp=phaseCurrent+1;
-					phaseCurrent=static_cast<EPhase>(tmp);
-
-					cout << "Phase Changed => Packet send" << endl;
-					PaquetPhase paquet = {'p', Timer::getTimer()->getTime() , phaseCurrent};
-					for(set<Bomberman*, CompareBomberman>::iterator it = this->playerNetwork.begin(); it !=this->playerNetwork.end(); it++)
+					
+					if(phaseCurrent == P_HurryUp)
 					{
-						(*it)->sendData<PaquetPhase>(&paquet);
+						phaseCurrent = P_Initialisation;
+						cout<<"Next Round => Packet send" << endl;
+						cout << "--------------Initialisation Step--------------" << endl;						
+						cout << "Waiting for players" << endl;
+						//Reinitialisation des Phases
+						phase[P_Initialisation-2]->setEtat(E_Init);
+						phase[P_Initialisation-2]->end(P_Initialisation);
+						phase[P_Running-2]->setEtat(E_Init);
+						phase[P_Running-2]->end(P_Running);
+						phase[P_HurryUp-2]->setEtat(E_Init);
+						phase[P_HurryUp-2]->end(P_HurryUp);
+						//
+
+						PaquetPhase paquet = {'p', Timer::getTimer()->getTime() , phaseCurrent};
+						for(set<Bomberman*, CompareBomberman>::iterator it = this->playerNetwork.begin(); it !=this->playerNetwork.end(); it++)
+						{
+							(*it)->sendData<PaquetPhase>(&paquet);
+						}
+						break;
 					}
+					else
+					{
+						tmp=phaseCurrent+1;
+						phaseCurrent=static_cast<EPhase>(tmp);
+						cout << "Phase Changed => Packet send" << endl;
+						PaquetPhase paquet = {'p', Timer::getTimer()->getTime() , phaseCurrent};
+						for(set<Bomberman*, CompareBomberman>::iterator it = this->playerNetwork.begin(); it !=this->playerNetwork.end(); it++)
+						{
+							(*it)->sendData<PaquetPhase>(&paquet);
+						}
+					}
+
+					
 
 				}
             break;
@@ -172,5 +200,10 @@ namespace GameTypeSpace
 	int Classic::getWaitingTime()
 	{
 		return this->waitTime;
+	}
+
+	int Classic::getPartTime()
+	{
+		return this->partTime;
 	}
 }

@@ -16,7 +16,7 @@ class GameType : public IObserverSocketAccept
 {
 
 public:
-	GameType(Server *server,int partTime);
+	GameType(Server *server,int partTime,Socket *socket);
 	virtual ~GameType();
 	virtual void update()=0;
     virtual void explode(Bomb* bomb,int speed,int power)=0;

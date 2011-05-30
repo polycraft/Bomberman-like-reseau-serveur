@@ -7,7 +7,7 @@ namespace GameTypeSpace
 {
 	namespace ClassicSpace
 	{
-		class Running : public PhaseClassic
+		class Running : public PhaseClassic, IObserverTimer
 		{
 
 		public:

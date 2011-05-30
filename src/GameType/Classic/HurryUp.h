@@ -7,16 +7,17 @@ namespace GameTypeSpace
 {
 	namespace ClassicSpace
 	{
-		class HurryUp : public Running
+		class HurryUp : public Running, IObserverTimer
 		{
 
 		public:
 			HurryUp(GameTypeSpace::Classic *gameType,CollisionDetector *collision);
 			virtual ~HurryUp();
+			void init();
 			void run();
 			void updateTimer(unsigned int delay);
 		private:
-
+			int hurryTime;
 		};
 	}
 }

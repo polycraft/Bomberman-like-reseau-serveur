@@ -23,8 +23,8 @@ namespace GameTypeSpace
 	        P_Next=1,
 	        P_Initialisation=2,
 	        P_Running=3,
-	        P_Dead=4,
-	        P_HurryUp=5
+	        P_HurryUp=4,
+			P_Dead=5,
 	    };
 	}
 
@@ -32,7 +32,7 @@ namespace GameTypeSpace
 	{
 
 	public:
-		Classic(Server *server);
+		Classic(Server *server,Socket *socket);
 		virtual ~Classic();
 		void update();
 
@@ -49,6 +49,7 @@ namespace GameTypeSpace
 
         void updateRecv(Socket *,Paquet &paquet);
 
+		int getPartTime();
 		int getWaitingTime();
 	private:
 		int waitTime;

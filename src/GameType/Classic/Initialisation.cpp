@@ -19,7 +19,7 @@ namespace GameTypeSpace
 			/*if(this->gameType->getPlayerNetwork().size() >= 2)
 			{*/
 				Timer::getTimer()->addListener(this,this->gameType->getWaitingTime());
-				cout << "Waiting " << this->gameType->getWaitingTime()/1000 << " secondes for Begin the Party !" << endl;
+				cout << "Waiting " << this->gameType->getWaitingTime()/1000 << " secondes to Begin the Party !" << endl;
 				this->nextEtat();
 			//}			
 		}
@@ -62,7 +62,9 @@ namespace GameTypeSpace
 		void Initialisation::updateTimer(unsigned int delay)
 		{
 			Timer::getTimer()->removeListener(this,this->gameType->getWaitingTime());
+
 			end(P_Next);
+			
 		}
 	}
 }

@@ -1,8 +1,8 @@
 #include "GameType.h"
 
-GameType::GameType(Server *server,int partTime):partTime(partTime),server(server)
+GameType::GameType(Server *server,int partTime,Socket *socket):partTime(partTime),server(server)
 {
-	this->socket= new Socket(5000,TP_TCP);
+	this->socket= socket;
     socket->addObserverAccept(this);
     stop=false;
     thread=socket->run(&stop);
@@ -20,6 +20,7 @@ Server* GameType::getServer()
 
 void GameType::updateAccept(Socket* s)
 {
+	cout << "Connection InComming" << endl;
     //Recherche d'un id libre
     int id=0;
 

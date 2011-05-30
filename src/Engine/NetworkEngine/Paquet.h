@@ -15,7 +15,6 @@ class Paquet
         }
         char * getData();
         unsigned int getSize();
-    protected:
     private:
     char* data;
     unsigned int size;

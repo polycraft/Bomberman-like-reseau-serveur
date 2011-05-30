@@ -40,6 +40,10 @@ void Phase::nextEtat()
     this->etat=static_cast<EEtat>(tmp+1);
 }
 
+void Phase::setEtat(EEtat etat)
+{
+	this->etat = etat;
+}
 
 void Phase::setCollisionDetector(CollisionDetector *collision)
 {
