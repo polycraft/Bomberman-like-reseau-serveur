@@ -16,11 +16,14 @@ namespace GameTypeSpace
 
 		void Initialisation::init()
 		{
+
 			/*if(this->gameType->getPlayerNetwork().size() >= 2)
 			{*/
+
 				Timer::getTimer()->addListener(this,this->gameType->getWaitingTime());
 				cout << "Waiting " << this->gameType->getWaitingTime()/1000 << " secondes to Begin the Party !" << endl;
 				this->nextEtat();
+
 			//}			
 		}
 

@@ -24,7 +24,8 @@ namespace GameTypeSpace
 	        P_Initialisation=2,
 	        P_Running=3,
 	        P_HurryUp=4,
-			P_Dead=5,
+			P_Ending=5,
+			P_Dead=6
 	    };
 	}
 
@@ -57,7 +58,7 @@ namespace GameTypeSpace
 		CollisionDetector *collision;
 		ClassicSpace::EPhase phaseCurrent;
 		Bomberman *player;
-		Phase *phase[4];
+		Phase *phase[5];
 	};
 }
 

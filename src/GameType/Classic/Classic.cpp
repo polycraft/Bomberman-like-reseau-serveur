@@ -5,6 +5,7 @@
 #include "Running.h"
 #include "HurryUp.h"
 #include "Dead.h"
+#include "Ending.h"
 
 namespace GameTypeSpace
 {
@@ -22,6 +23,7 @@ namespace GameTypeSpace
 	    phase[P_Running-2]=new Running(this,collision);
 	    phase[P_Dead-2]=new Dead(this,collision);
 	    phase[P_HurryUp-2]=new HurryUp(this,collision);
+		phase[P_Ending-2]=new Ending(this,collision);
 		cout << "GameType Launched"<<endl;
 		cout << "--------------Initialisation Step--------------" << endl;
 		cout << "Waiting for players" << endl;
@@ -50,7 +52,7 @@ namespace GameTypeSpace
             case P_Next:
 				{
 					
-					if(phaseCurrent == P_HurryUp)
+					if(phaseCurrent == P_Ending)
 					{
 						phaseCurrent = P_Initialisation;
 						cout<<"Next Round => Packet send" << endl;
@@ -63,9 +65,11 @@ namespace GameTypeSpace
 						phase[P_Running-2]->end(P_Running);
 						phase[P_HurryUp-2]->setEtat(E_Init);
 						phase[P_HurryUp-2]->end(P_HurryUp);
+						phase[P_Ending-2]->setEtat(E_Init);
+						phase[P_Ending-2]->end(P_Ending);
 						//
 
-						PaquetPhase paquet = {'p', Timer::getTimer()->getTime() , phaseCurrent};
+						PaquetPhase paquet = {'e', Timer::getTimer()->getTime() , phaseCurrent};
 						for(set<Bomberman*, CompareBomberman>::iterator it = this->playerNetwork.begin(); it !=this->playerNetwork.end(); it++)
 						{
 							(*it)->sendData<PaquetPhase>(&paquet);
