@@ -5,6 +5,8 @@
 Bomberman::Bomberman(Socket *sock, GameType *gameType,map<EPropertyBomberman,Property*>& property):socket(sock),stop(false),gameType(gameType)
 {
     this->property=property;
+
+	socket->addObserverRecv(this);
     thread = sock->run(&stop);
 }
 

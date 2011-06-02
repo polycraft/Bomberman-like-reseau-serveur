@@ -2,11 +2,12 @@
 #define GAME_H
 class Server;
 #include "Engine/util/IObserverTimer.h"
+#include "Engine/NetworkEngine/IObserverSocketRecv.h"
 #include "Map.h"
 #include "Engine/MainEngine.h"
 
 
-class Server : public Engine::IObserverTimer
+class Server : public Engine::IObserverTimer, public Engine::IObserverSocketRecv
 {
     public:
         Server();
@@ -14,7 +15,7 @@ class Server : public Engine::IObserverTimer
 
         void run();
         void updateTimer(unsigned int delay);
-
+        void updateRecv(Engine::Socket *,Engine::Paquet& paquet);
         Map *getMap();
         MainEngine* getEngine();
     protected:

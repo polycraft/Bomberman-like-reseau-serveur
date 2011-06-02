@@ -40,7 +40,7 @@ namespace GameTypeSpace
 
 	void Classic::update()
 	{
-		
+
 	    Phase* t=getPhase(phaseCurrent);
         EPhase nextPhase=static_cast<EPhase>(getPhase(phaseCurrent)->update());
         int tmp;
@@ -51,12 +51,12 @@ namespace GameTypeSpace
             break;
             case P_Next:
 				{
-					
+
 					if(phaseCurrent == P_Ending)
 					{
 						phaseCurrent = P_Initialisation;
 						cout<<"Next Round => Packet send" << endl;
-						cout << "--------------Initialisation Step--------------" << endl;						
+						cout << "--------------Initialisation Step--------------" << endl;
 						cout << "Waiting for players" << endl;
 						//Reinitialisation des Phases
 						phase[P_Initialisation-2]->setEtat(E_Init);
@@ -69,7 +69,7 @@ namespace GameTypeSpace
 						phase[P_Ending-2]->end(P_Ending);
 						//
 
-						PaquetPhase paquet = {'e', Timer::getTimer()->getTime() , phaseCurrent};
+						PaquetPhase paquet = {'p', Timer::getTimer()->getTime() , phaseCurrent};
 						for(set<Bomberman*, CompareBomberman>::iterator it = this->playerNetwork.begin(); it !=this->playerNetwork.end(); it++)
 						{
 							(*it)->sendData<PaquetPhase>(&paquet);
@@ -88,7 +88,7 @@ namespace GameTypeSpace
 						}
 					}
 
-					
+
 
 				}
             break;
