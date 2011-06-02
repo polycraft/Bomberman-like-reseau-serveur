@@ -69,11 +69,10 @@ namespace GameTypeSpace
 						phase[P_Ending-2]->end(P_Ending);
 						//
 
-						PaquetPhase paquet = {'p', Timer::getTimer()->getTime() , phaseCurrent};
-						for(set<Bomberman*, CompareBomberman>::iterator it = this->playerNetwork.begin(); it !=this->playerNetwork.end(); it++)
+						/*for(set<Bomberman*, CompareBomberman>::iterator it = this->playerNetwork.begin(); it !=this->playerNetwork.end(); it++)
 						{
 							(*it)->sendData<PaquetPhase>(&paquet);
-						}
+						}*/
 						break;
 					}
 					else
@@ -81,13 +80,14 @@ namespace GameTypeSpace
 						tmp=phaseCurrent+1;
 						phaseCurrent=static_cast<EPhase>(tmp);
 						cout << "Phase Changed => Packet send" << endl;
-						PaquetPhase paquet = {'p', Timer::getTimer()->getTime() , phaseCurrent};
-						for(set<Bomberman*, CompareBomberman>::iterator it = this->playerNetwork.begin(); it !=this->playerNetwork.end(); it++)
+
+						/*for(set<Bomberman*, CompareBomberman>::iterator it = this->playerNetwork.begin(); it !=this->playerNetwork.end(); it++)
 						{
 							(*it)->sendData<PaquetPhase>(&paquet);
-						}
+						}*/
 					}
-
+                    PaquetPhase paquet = {'p', Timer::getTimer()->getTime() , phaseCurrent};
+                    this->updateAllNetwork<PaquetPhase>(paquet);
 
 
 				}

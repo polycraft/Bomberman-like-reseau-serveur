@@ -37,17 +37,6 @@ void GameType::updateAccept(Socket* s)
     //Création d'un nouveau joueur
     playerNetwork.insert(new Bomberman(s,this,id));
 }
-void GameType::updateNetwork(Bomberman* bomberman,Paquet& paquet)
-{
-    for(std::set<Bomberman*,CompareBomberman>::iterator it=playerNetwork.begin(); it!=playerNetwork.end(); ++it)
-    {
-        //Envoie du paquet à tout les joueurs sauf le joueur d'origine
-        if((*it)->getProperty<int>(PB_id)!=bomberman->getProperty<int>(PB_id))
-        {
-            (*it)->sendData(paquet);
-        }
-    }
-}
 
 set<Bomberman*,CompareBomberman>& GameType::getPlayerNetwork()
 {

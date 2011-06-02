@@ -76,12 +76,15 @@ public:
 				socket->sendData<T>(data);
 		}
 
+    bool isConnected();
+
 protected:
     map<EPropertyBomberman,Property*> property;
     Thread* thread;
     Socket* socket;
     bool stop;
     GameType *gameType;
+    bool connected;
 };
 
 

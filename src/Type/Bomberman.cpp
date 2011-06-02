@@ -2,7 +2,7 @@
 #include "../Engine/util/Timer.h"
 #include "Paquet.h"
 
-Bomberman::Bomberman(Socket *sock, GameType *gameType,map<EPropertyBomberman,Property*>& property):socket(sock),stop(false),gameType(gameType)
+Bomberman::Bomberman(Socket *sock, GameType *gameType,map<EPropertyBomberman,Property*>& property):socket(sock),stop(false),gameType(gameType),connected(false)
 {
     this->property=property;
 
@@ -80,7 +80,7 @@ void Bomberman::updateRecv(Socket *sock,Paquet& paquet)
             //Paquet provient bien du bon joueur
             if(paquetBomb->idBomber==this->getProperty<int>(PB_id))
             {
-                gameType->updateNetwork(this,paquet);
+                gameType->updateAllNetwork<Paquet>(paquet);
             }
         }
         break;
@@ -91,7 +91,7 @@ void Bomberman::updateRecv(Socket *sock,Paquet& paquet)
             //Paquet provient bien du bon joueur
             if(paquetMove->idBomber==this->getProperty<int>(PB_id))
             {
-                gameType->updateNetwork(this,paquet);
+                gameType->updateNetwork<Paquet>(this,paquet);
             }
         }
         break;
@@ -104,6 +104,7 @@ void Bomberman::updateRecv(Socket *sock,Paquet& paquet)
                 {
                     PaquetId paquetId={'i', Engine::Timer::getTimer()->getTime(),this->getProperty<int>(PB_id)};
                     this->sendData<PaquetId>(&paquetId);
+                    connected=true;
                 }
                 break;
             }
@@ -115,6 +116,11 @@ void Bomberman::updateRecv(Socket *sock,Paquet& paquet)
 void Bomberman::sendData(Paquet &paquet)
 {
     socket->sendData(paquet);
+}
+
+bool Bomberman::isConnected()
+{
+    return connected;
 }
 
 bool CompareBomberman::operator()(const Bomberman* a,const Bomberman *b)
