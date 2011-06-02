@@ -1,5 +1,6 @@
 #include "Bomberman.h"
 #include "../Engine/util/Timer.h"
+#include "Paquet.h"
 
 Bomberman::Bomberman(Socket *sock, GameType *gameType,map<EPropertyBomberman,Property*>& property):socket(sock),stop(false),gameType(gameType)
 {
@@ -68,9 +69,10 @@ void Bomberman::lostLife(int nb)
 void Bomberman::updateRecv(Socket *sock,Paquet& paquet)
 {
     char type=(paquet.getData())[0];
-    /*switch(type)
+    switch(type)
     {
         case 'b'://Bombe
+        {
             PaquetBomb *paquetBomb=paquet.getData<PaquetBomb*>();
 
             //Paquet provient bien du bon joueur
@@ -78,8 +80,10 @@ void Bomberman::updateRecv(Socket *sock,Paquet& paquet)
             {
                 gameType->updateNetwork(this,paquet);
             }
+        }
         break;
         case 'm'://Move
+        {
             PaquetMove *paquetMove=paquet.getData<PaquetMove*>();
 
             //Paquet provient bien du bon joueur
@@ -87,8 +91,23 @@ void Bomberman::updateRecv(Socket *sock,Paquet& paquet)
             {
                 gameType->updateNetwork(this,paquet);
             }
+        }
         break;
-    }*/
+        case 'a'://Demande d'information
+        {
+            PaquetAsk *paquetAsk=paquet.getData<PaquetAsk*>();
+            switch(paquetAsk->paquet)
+            {
+                case 'i'://id
+                {
+                    PaquetId paquetId={'i', Engine::Timer::getTimer()->getTime(),this->getProperty<int>(PB_id)};
+                    this->sendData<PaquetId>(&paquetId);
+                }
+                break;
+            }
+        }
+        break;
+    }
 }
 
 void Bomberman::sendData(Paquet &paquet)
