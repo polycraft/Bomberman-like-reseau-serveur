@@ -4,6 +4,7 @@
 #include "Engine/util/IObserverTimer.h"
 #include "Engine/NetworkEngine/IObserverSocketRecv.h"
 #include "Engine/MainEngine.h"
+#include <string>
 
 class Map;
 
@@ -21,6 +22,7 @@ class Server : public Engine::IObserverTimer, public Engine::IObserverSocketRecv
     protected:
     private:
     Map *map;
+    std::string mapName;
     Engine::MainEngine* engine;
 };
 

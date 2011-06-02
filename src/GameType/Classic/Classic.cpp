@@ -225,6 +225,11 @@ namespace GameTypeSpace
                         bomberman->setConnected(true);
                     }
                     break;
+                    case 'p':
+                    {
+                        PaquetPhase paquetPhase={'p', Engine::Timer::getTimer()->getTime(),phaseCurrent};
+                        bomberman->sendData<PaquetId>(&paquetPhase);
+                    }
                 }
             }
             break;

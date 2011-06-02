@@ -5,6 +5,8 @@
 #include "Loader/LoaderMap.h"
 #include "Engine/ManagerRessource.h"
 #include "Map.h"
+#include "Type/Paquet.h"
+#include "Engine/util/Timer.h"
 
 using namespace Engine;
 using namespace std;
@@ -17,7 +19,9 @@ Server::Server()
     Loader *loaderMap=new LoaderMap();
     ManagerRessource::addLoader("map",loaderMap);
 
-	map = ManagerRessource::getRessource<Map>("src/ressource/map/test.map");
+    mapName="src/ressource/map/test.map";
+
+	map = ManagerRessource::getRessource<Map>(mapName);
 	cout << "Map loaded"<<endl;
 
 	Socket *socket = new Socket(5001,TP_TCP);
@@ -56,5 +60,29 @@ MainEngine* Server::getEngine()
 
 void Server::updateRecv(Socket *sock,Paquet& paquet)
 {
-
+    char type=(paquet.getData())[0];
+    switch(type)
+    {
+        case 'a'://Demande d'information
+        {
+            PaquetAsk *paquetAsk=paquet.getData<PaquetAsk*>();
+            switch(paquetAsk->paquet)
+            {
+                case 'c'://map
+                {
+                    PaquetMap paquetMap={'c', Engine::Timer::getTimer()->getTime(),""};
+                    mapName.copy(paquetMap.name,mapName.size());
+                    sock->sendData<PaquetMap>(&paquetMap);
+                }
+                break;
+            }
+        }
+        break;
+        case 'g':
+        {
+            PaquetPing paquetPing={'g', Engine::Timer::getTimer()->getTime()};
+            sock->sendData<PaquetPing>(&paquetPing);
+        }
+        break;
+    }
 }
