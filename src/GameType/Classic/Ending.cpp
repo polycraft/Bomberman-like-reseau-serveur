@@ -3,7 +3,7 @@
 namespace GameTypeSpace
 {
     using namespace ClassicSpace;
-	Ending::Ending(GameTypeSpace::Classic *gameType,CollisionDetector *collision)  : Running(gameType,collision)
+	Ending::Ending(GameTypeSpace::Classic *gameType,CollisionDetector *collision)  : PhaseClassic(gameType,collision)
 	{
 		this->waitTime = 4000;
 	}
@@ -31,4 +31,9 @@ namespace GameTypeSpace
 			Timer::getTimer()->removeListener(this,this->waitTime);
 			end(P_Next);
 	}
+
+	void Ending::updateRecv(Socket *socket,Paquet &paquet)
+    {
+
+    }
 }

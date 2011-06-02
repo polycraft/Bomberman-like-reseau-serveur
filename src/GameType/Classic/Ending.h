@@ -1,13 +1,14 @@
 #ifndef ENDING_H
 #define ENDING_H
 
-#include "Running.h"
+#include "PhaseClassic.h"
+#include "../../Engine/util/IObserverTimer.h"
 
 namespace GameTypeSpace
 {
 	namespace ClassicSpace
 	{
-		class Ending : public Running, IObserverTimer
+		class Ending : public PhaseClassic, public Engine::IObserverTimer
 		{
 
 		public:
@@ -16,6 +17,7 @@ namespace GameTypeSpace
 			void init();
 			void run();
 			void updateTimer(unsigned int delay);
+			void updateRecv(Socket *socket,Paquet &paquet);
 		private:
 			int waitTime;
 		};
