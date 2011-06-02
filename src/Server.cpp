@@ -11,14 +11,15 @@ Server::Server()
     //loaderMap
     Loader *loaderMap=new LoaderMap();
     ManagerRessource::addLoader("map",loaderMap);
-
+	
 	map = ManagerRessource::getRessource<Map>("src/ressource/map/test.map");
-
-	GameType *gameType=new GameTypeSpace::Classic(this);
-
+	cout << "Map loaded"<<endl;
+	
+	Socket *socket = new Socket(5001,TP_TCP);
+	GameType *gameType=new GameTypeSpace::Classic(this,socket);
+	
 
     bool continuer=true;
-
 	while(continuer)
 	{
         gameType->update();
