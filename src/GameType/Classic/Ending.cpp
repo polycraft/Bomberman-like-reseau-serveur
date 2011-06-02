@@ -37,7 +37,7 @@ namespace GameTypeSpace
 			end(P_Next);
 	}
 
-	void Ending::updateRecv(Socket *socket,Paquet &paquet)
+	void Ending::updateRecvBomberman(Bomberman* bomberman,Socket *socket,Paquet &paquet)
     {
 
     }

@@ -74,47 +74,7 @@ void Bomberman::lostLife(int nb)
 
 void Bomberman::updateRecv(Socket *sock,Paquet& paquet)
 {
-    char type=(paquet.getData())[0];
-    switch(type)
-    {
-        case 'b'://Bombe
-        {
-            PaquetBomb *paquetBomb=paquet.getData<PaquetBomb*>();
-
-            //Paquet provient bien du bon joueur
-            if(paquetBomb->idBomber==this->getProperty<int>(PB_id))
-            {
-                gameType->updateAllNetwork<Paquet>(paquet);
-            }
-        }
-        break;
-        case 'm'://Move
-        {
-            PaquetMove *paquetMove=paquet.getData<PaquetMove*>();
-
-            //Paquet provient bien du bon joueur
-            if(paquetMove->idBomber==this->getProperty<int>(PB_id))
-            {
-                gameType->updateNetwork<Paquet>(this,paquet);
-            }
-        }
-        break;
-        case 'a'://Demande d'information
-        {
-            PaquetAsk *paquetAsk=paquet.getData<PaquetAsk*>();
-            switch(paquetAsk->paquet)
-            {
-                case 'i'://id
-                {
-                    PaquetId paquetId={'i', Engine::Timer::getTimer()->getTime(),this->getProperty<int>(PB_id)};
-                    this->sendData<PaquetId>(&paquetId);
-                    connected=true;
-                }
-                break;
-            }
-        }
-        break;
-    }
+    gameType->updateRecvBomberman(this,sock,paquet);
 }
 
 void Bomberman::sendData(Paquet &paquet)
@@ -125,4 +85,9 @@ void Bomberman::sendData(Paquet &paquet)
 bool Bomberman::isConnected()
 {
     return connected;
+}
+
+void Bomberman::setConnected(bool c)
+{
+    connected=c;
 }

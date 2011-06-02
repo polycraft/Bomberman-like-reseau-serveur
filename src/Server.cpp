@@ -21,6 +21,7 @@ Server::Server()
 	cout << "Map loaded"<<endl;
 
 	Socket *socket = new Socket(5001,TP_TCP);
+	socket->addObserverRecv(this);
 	GameType *gameType=new GameTypeSpace::Classic(this,socket);
 
 

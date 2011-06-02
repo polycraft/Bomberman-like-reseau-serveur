@@ -23,7 +23,7 @@ namespace GameTypeSpace
 			virtual void init();
 			virtual void run();
 			virtual void updateTimer(unsigned int delay);
-			virtual void updateRecv(Engine::Socket *,Engine::Paquet &paquet);
+			virtual void updateRecvBomberman(Bomberman* bomberman,Engine::Socket *socket,Engine::Paquet &paquet);
 		};
 	}
 }

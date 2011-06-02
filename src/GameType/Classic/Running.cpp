@@ -3,6 +3,7 @@
 #include "Classic.h"
 #include "../../CollisionDetector.h"
 #include "../../Engine/util/Timer.h"
+#include "../../Type/Paquet.h"
 
 using namespace Engine;
 
@@ -38,9 +39,34 @@ namespace GameTypeSpace
 			end(P_Next);
 		}
 
-		void Running::updateRecv(Socket *socket,Paquet &paquet)
+		void Running::updateRecvBomberman(Bomberman* bomberman,Socket *socket,Paquet &paquet)
 		{
+            char type=(paquet.getData())[0];
+                switch(type)
+                {
+                    case 'b'://Bombe
+                    {
+                        PaquetBomb *paquetBomb=paquet.getData<PaquetBomb*>();
 
+                        //Paquet provient bien du bon joueur
+                        if(paquetBomb->idBomber==bomberman->getProperty<int>(PB_id))
+                        {
+                            gameType->updateAllNetwork<Paquet>(paquet);
+                        }
+                    }
+                    break;
+                    case 'm'://Move
+                    {
+                        PaquetMove *paquetMove=paquet.getData<PaquetMove*>();
+
+                        //Paquet provient bien du bon joueur
+                        if(paquetMove->idBomber==bomberman->getProperty<int>(PB_id))
+                        {
+                            gameType->updateNetwork<Paquet>(bomberman,paquet);
+                        }
+                    }
+                    break;
+                }
 		}
 	}
 }

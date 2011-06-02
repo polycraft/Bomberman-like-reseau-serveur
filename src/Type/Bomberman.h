@@ -70,6 +70,7 @@ public:
 		}
 
     bool isConnected();
+    void setConnected(bool c);
 
 protected:
     std::map<EPropertyBomberman,Property*> property;

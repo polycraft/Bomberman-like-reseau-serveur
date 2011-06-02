@@ -207,9 +207,28 @@ namespace GameTypeSpace
         }
     }
 
-    void Classic::updateRecv(Socket *socket,Paquet &paquet)
+    void Classic::updateRecvBomberman(Bomberman* bomberman,Socket *socket,Paquet &paquet)
     {
-        dynamic_cast<PhaseClassic*>(this->phase[phaseCurrent-2])->updateRecv(socket,paquet);
+        dynamic_cast<PhaseClassic*>(this->phase[phaseCurrent-2])->updateRecvBomberman(bomberman,socket,paquet);
+        char type=(paquet.getData())[0];
+        switch(type)
+        {
+            case 'a'://Demande d'information
+            {
+                PaquetAsk *paquetAsk=paquet.getData<PaquetAsk*>();
+                switch(paquetAsk->paquet)
+                {
+                    case 'i'://id
+                    {
+                        PaquetId paquetId={'i', Engine::Timer::getTimer()->getTime(),bomberman->getProperty<int>(PB_id)};
+                        bomberman->sendData<PaquetId>(&paquetId);
+                        bomberman->setConnected(true);
+                    }
+                    break;
+                }
+            }
+            break;
+        }
     }
 
 	int Classic::getWaitingTime()

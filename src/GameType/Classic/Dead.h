@@ -22,7 +22,7 @@ namespace GameTypeSpace
 			virtual ~Dead();
 			void init();
 			void run();
-            virtual void updateRecv(Engine::Socket *,Engine::Paquet &paquet);
+            virtual void updateRecvBomberman(Bomberman* bomberman,Engine::Socket *socket,Engine::Paquet &paquet);
 		};
 	}
 }

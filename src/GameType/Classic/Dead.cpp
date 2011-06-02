@@ -30,7 +30,7 @@ namespace GameTypeSpace
 
 		}
 
-		void Dead::updateRecv(Socket *socket,Paquet &paquet)
+		void Dead::updateRecvBomberman(Bomberman* bomberman,Socket *socket,Paquet &paquet)
 		{
 
 		}

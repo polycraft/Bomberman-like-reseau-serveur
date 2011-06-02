@@ -32,7 +32,7 @@ namespace GameTypeSpace
 	    };
 	}
 
-	class Classic : public GameType, public Engine::IObserverSocketRecv
+	class Classic : public GameType
 	{
 
 	public:
@@ -51,10 +51,11 @@ namespace GameTypeSpace
 		void updateExplosion(ExplosionFlare *flare,int power,int x,int y);
         void destroyManagerExplosion(ManagerExplosion* manager);
 
-        void updateRecv(Engine::Socket *,Engine::Paquet &paquet);
+        virtual void updateRecvBomberman(Bomberman* bomberman,Engine::Socket *sock,Engine::Paquet& paquet);
 
 		int getPartTime();
 		int getWaitingTime();
+
 	private:
 		int waitTime;
 		int partTime;

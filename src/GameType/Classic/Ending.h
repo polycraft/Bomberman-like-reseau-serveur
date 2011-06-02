@@ -24,7 +24,7 @@ namespace GameTypeSpace
 			void init();
 			void run();
 			void updateTimer(unsigned int delay);
-			void updateRecv(Engine::Socket *socket,Engine::Paquet &paquet);
+			void updateRecvBomberman(Bomberman* bomberman,Engine::Socket *socket,Engine::Paquet &paquet);
 		private:
 			int waitTime;
 		};

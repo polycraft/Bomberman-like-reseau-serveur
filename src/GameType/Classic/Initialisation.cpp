@@ -63,7 +63,7 @@ namespace GameTypeSpace
 
 		}
 
-		void Initialisation::updateRecv(Socket *socket,Paquet &paquet)
+		void Initialisation::updateRecvBomberman(Bomberman* bomberman,Socket *socket,Paquet &paquet)
 		{
 
 		}

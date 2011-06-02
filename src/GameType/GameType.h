@@ -48,6 +48,7 @@ public:
         }
     }
 	set<Bomberman*,CompareBomberman>& getPlayerNetwork();
+	virtual void updateRecvBomberman(Bomberman* bomberman,Engine::Socket *sock,Engine::Paquet& paquet)=0;
 protected:
     Server* server;
     Engine::Thread* thread;
