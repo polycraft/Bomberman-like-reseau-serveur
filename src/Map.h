@@ -46,6 +46,8 @@ public:
 	Type* get(int x,int y);
 	void set(Type* object,int x,int y);
 	void setEngine(Engine::MainEngine* engine);
+	void setDataMap(char* dataMap);
+	void buildMap();
 
 private:
 	int gameType;
@@ -54,6 +56,9 @@ private:
 	std::vector<Engine::Scene*> scene;
 	std::vector<SCoordinate> spawn;
 	Type ***map;
+
+	char *mapData;
+
 	Engine::MainEngine* engine;
 
 };
