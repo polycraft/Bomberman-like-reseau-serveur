@@ -1,5 +1,15 @@
 #include "Classic.h"
 
+#include "../../CollisionDetector.h"
+#include "../../Type/ManagerExplosion.h"
+#include "../../Type/ExplosionFlare.h"
+#include "../../Type/Bomberman.h"
+#include "../../Type/Bomb.h"
+#include "../../Type/Paquet.h"
+#include "../../Server.h"
+#include "../../Map.h"
+#include "../../Engine/util/Timer.h"
+
 
 #include "Initialisation.h"
 #include "Running.h"
@@ -10,6 +20,7 @@
 namespace GameTypeSpace
 {
     using namespace ClassicSpace;
+    using namespace Engine;
 	Classic::Classic(Server *server,Socket *socket):GameType(server,10, socket)
 	{
 		this->partTime = 4000;

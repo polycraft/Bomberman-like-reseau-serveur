@@ -2,6 +2,13 @@
 #define RUNNING_H
 
 #include "PhaseClassic.h"
+#include "../../Engine/util/IObserverTimer.h"
+
+namespace GameTypeSpace
+{
+    class Classic;
+}
+class CollisionDetector;
 
 namespace GameTypeSpace
 {
@@ -16,7 +23,7 @@ namespace GameTypeSpace
 			virtual void init();
 			virtual void run();
 			virtual void updateTimer(unsigned int delay);
-			virtual void updateRecv(Socket *,Paquet &paquet);
+			virtual void updateRecv(Engine::Socket *,Engine::Paquet &paquet);
 		};
 	}
 }

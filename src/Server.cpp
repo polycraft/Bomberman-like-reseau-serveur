@@ -3,6 +3,11 @@
 #include "GameType/Classic/Classic.h"
 #include <sstream>
 #include "Loader/LoaderMap.h"
+#include "Engine/ManagerRessource.h"
+#include "Map.h"
+
+using namespace Engine;
+using namespace std;
 
 Server::Server()
 {

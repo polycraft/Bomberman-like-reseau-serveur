@@ -2,15 +2,20 @@
 #define INITIALISATION_H
 
 #include "../../Engine/util/IObserverTimer.h"
-#include "../../Engine/util/Timer.h"
+#include "../../Engine/NetworkEngine/IObserverSocketRecv.h"
 #include "PhaseClassic.h"
-#include "Classic.h"
+
+namespace GameTypeSpace
+{
+    class Classic;
+}
+class CollisionDetector;
 
 namespace GameTypeSpace
 {
 	namespace ClassicSpace
 	{
-		class Initialisation : public PhaseClassic, IObserverTimer
+		class Initialisation : public PhaseClassic, Engine::IObserverTimer
 		{
 
 		public:
@@ -19,7 +24,7 @@ namespace GameTypeSpace
 			void init();
 			void run();
 			void updateTimer(unsigned int delay);
-            virtual void updateRecv(Socket *,Paquet &paquet);
+            virtual void updateRecv(Engine::Socket *,Engine::Paquet &paquet);
 		};
 	}
 }

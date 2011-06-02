@@ -1,5 +1,11 @@
 #include "HurryUp.h"
 
+#include "Classic.h"
+#include "../../CollisionDetector.h"
+#include "../../Engine/util/Timer.h"
+
+using namespace Engine;
+
 namespace GameTypeSpace
 {
 	namespace ClassicSpace

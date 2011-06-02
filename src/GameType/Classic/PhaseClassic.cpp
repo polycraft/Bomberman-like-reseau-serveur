@@ -1,5 +1,8 @@
 #include "PhaseClassic.h"
 
+#include "Classic.h"
+#include "../../CollisionDetector.h"
+
 namespace GameTypeSpace
 {
 	namespace ClassicSpace

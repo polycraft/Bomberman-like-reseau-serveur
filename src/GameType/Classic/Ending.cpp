@@ -1,8 +1,13 @@
 #include "Ending.h"
 
+#include "Classic.h"
+#include "../../CollisionDetector.h"
+#include "../../Engine/util/Timer.h"
+
 namespace GameTypeSpace
 {
     using namespace ClassicSpace;
+    using namespace Engine;
 	Ending::Ending(GameTypeSpace::Classic *gameType,CollisionDetector *collision)  : PhaseClassic(gameType,collision)
 	{
 		this->waitTime = 4000;

@@ -1,4 +1,9 @@
 #include "Bomb.h"
+#include "../Engine/util/Timer.h"
+#include "../GameType/GameType.h"
+#include "../Engine/ManagerRessource.h"
+
+using namespace Engine;
 
 Bomb::Bomb(GameType* gameType,int idOwner, int time, int speed, int power):gameType(gameType)
 {

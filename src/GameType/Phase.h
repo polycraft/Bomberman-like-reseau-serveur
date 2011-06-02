@@ -1,10 +1,7 @@
 #ifndef PHASE_H
 #define PHASE_H
 
-#include "../CollisionDetector.h"
-#include "GameType.h"
-
-using namespace Engine;
+class CollisionDetector;
 
 typedef enum EEtat
 {

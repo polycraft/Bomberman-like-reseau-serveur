@@ -1,6 +1,10 @@
 #include "Bomberman.h"
+
 #include "../Engine/util/Timer.h"
 #include "Paquet.h"
+#include "../GameType/GameType.h"
+
+using namespace Engine;
 
 Bomberman::Bomberman(Socket *sock, GameType *gameType,map<EPropertyBomberman,Property*>& property):socket(sock),stop(false),gameType(gameType),connected(false)
 {
@@ -121,9 +125,4 @@ void Bomberman::sendData(Paquet &paquet)
 bool Bomberman::isConnected()
 {
     return connected;
-}
-
-bool CompareBomberman::operator()(const Bomberman* a,const Bomberman *b)
-{
-    return a->getProperty<int>(PB_id)<b->getProperty<int>(PB_id);
 }

@@ -2,6 +2,13 @@
 #define HURRYUP_H
 
 #include "Running.h"
+#include "../../Engine/util/IObserverTimer.h"
+
+namespace GameTypeSpace
+{
+    class Classic;
+}
+class CollisionDetector;
 
 namespace GameTypeSpace
 {

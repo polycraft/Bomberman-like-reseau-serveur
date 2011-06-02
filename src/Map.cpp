@@ -1,6 +1,9 @@
 #include "Map.h"
 
+#include "Type/Bomberman.h"
+#include "Type/Type.h"
 
+using namespace Engine;
 
 Map::Map(string &name, EGameType gameType, int width, int height)  : Ressource(name)
 {

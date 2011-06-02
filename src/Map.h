@@ -1,17 +1,18 @@
 #ifndef MAP_H
 #define MAP_H
-class Map;
-#include "Type/Bomberman.h"
-#include "Type/Type.h"
-#include <vector>
-#include "Engine/GraphicEngine/Scene.h"
-#include "Engine/MainEngine.h"
-#include "Engine/Ressource.h"
-#include "Engine/ManagerRessource.h"
-#include "Type/StaticBloc.h"
-#include "Type/BreakableBloc.h"
 
-using namespace Engine;
+#include <vector>
+#include <string>
+#include "Engine/Ressource.h"
+#include "Engine/MainEngine.h"
+#include "Engine/GraphicEngine/Scene.h"
+
+
+
+
+class Type;
+class Bomberman;
+
 
 enum EScene{
 	T_World=0,
@@ -30,11 +31,11 @@ typedef struct SCoordinate
 	int y;
 } SCoordinate;
 
-class Map : public Ressource
+class Map : public Engine::Ressource
 {
 
 public:
-	Map(string &name, EGameType gameType, int width, int lenght);
+	Map(std::string &name, EGameType gameType, int width, int lenght);
 	~Map();
 	void addBomberman(Bomberman *bomberman,SCoordinate coord);
 	void addObject(Type* object, int x, int y, EScene scene);
@@ -44,16 +45,16 @@ public:
 	int getHeight();
 	Type* get(int x,int y);
 	void set(Type* object,int x,int y);
-	void setEngine(MainEngine* engine);
+	void setEngine(Engine::MainEngine* engine);
 
 private:
 	int gameType;
 	int width;
 	int height;
-	vector<Scene*> scene;
-	vector<SCoordinate> spawn;
+	std::vector<Engine::Scene*> scene;
+	std::vector<SCoordinate> spawn;
 	Type ***map;
-	MainEngine* engine;
+	Engine::MainEngine* engine;
 
 };
 

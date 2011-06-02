@@ -1,6 +1,12 @@
 #include "Initialisation.h"
 
 #include "../../Map.h"
+#include "../../Server.h"
+#include "Classic.h"
+#include "../../CollisionDetector.h"
+#include "../../Engine/util/Timer.h"
+
+using namespace Engine;
 
 namespace GameTypeSpace
 {
@@ -24,14 +30,14 @@ namespace GameTypeSpace
 				cout << "Waiting " << this->gameType->getWaitingTime()/1000 << " secondes to Begin the Party !" << endl;
 				this->nextEtat();
 
-			//}			
+			//}
 		}
 
 		void Initialisation::run()
 		{
-			
+
 		    Map *map=gameType->getServer()->getMap();
-			
+
 		    //Création du bomberman
 		    /*Bomberman *bomber=new Bomberman(0);
 		    bomber->setProperty<int>(PB_bombPower,2);
@@ -54,7 +60,7 @@ namespace GameTypeSpace
 		    this->gameType->getPlayerNetwork().push_back(bomber);
 		    map->addBomberman(bomber,map->getSpawn(1));*/
 
-		    
+
 		}
 
 		void Initialisation::updateRecv(Socket *socket,Paquet &paquet)
@@ -67,7 +73,7 @@ namespace GameTypeSpace
 			Timer::getTimer()->removeListener(this,this->gameType->getWaitingTime());
 
 			end(P_Next);
-			
+
 		}
 	}
 }

@@ -2,7 +2,13 @@
 #define DEAD_H
 
 #include "PhaseClassic.h"
-#include "Classic.h"
+#include "../../Engine/NetworkEngine/IObserverSocketRecv.h"
+
+namespace GameTypeSpace
+{
+    class Classic;
+}
+class CollisionDetector;
 
 namespace GameTypeSpace
 {
@@ -16,7 +22,7 @@ namespace GameTypeSpace
 			virtual ~Dead();
 			void init();
 			void run();
-            virtual void updateRecv(Socket *,Paquet &paquet);
+            virtual void updateRecv(Engine::Socket *,Engine::Paquet &paquet);
 		};
 	}
 }

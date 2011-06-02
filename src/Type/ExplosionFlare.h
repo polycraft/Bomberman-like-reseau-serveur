@@ -1,19 +1,17 @@
 #ifndef EXPLOSIONFLARE_H
 #define EXPLOSIONFLARE_H
 
-class ExplosionFlare;
-
-#include "Type.h"
-#include "Explosion.h"
-#include "ManagerExplosion.h"
-#include "../Map.h"
-#include "../Engine/util/Timer.h"
-
 #include "../Engine/util/IObserverTimer.h"
-#include "../GameType/GameType.h"
+#include <vector>
+#include "Explosion.h"
 
 
-class ExplosionFlare : public IObserverTimer
+class GameType;
+class ManagerExplosion;
+class Explosion;
+
+
+class ExplosionFlare : public Engine::IObserverTimer
 {
 	public:
 		ExplosionFlare(int x, int y, int id, int speed, int power, EExplose typeExplose, GameType *gametype, ManagerExplosion *manager);
@@ -27,7 +25,7 @@ class ExplosionFlare : public IObserverTimer
 	private:
 		int x;
 		int y;
-		vector<Explosion*> listeExplosions;
+		std::vector<Explosion*> listeExplosions;
 		int id;
 		int speed;
 		int power;

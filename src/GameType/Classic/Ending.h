@@ -3,6 +3,13 @@
 
 #include "PhaseClassic.h"
 #include "../../Engine/util/IObserverTimer.h"
+#include "../../Engine/NetworkEngine/IObserverSocketRecv.h"
+
+namespace GameTypeSpace
+{
+    class Classic;
+}
+class CollisionDetector;
 
 namespace GameTypeSpace
 {
@@ -17,7 +24,7 @@ namespace GameTypeSpace
 			void init();
 			void run();
 			void updateTimer(unsigned int delay);
-			void updateRecv(Socket *socket,Paquet &paquet);
+			void updateRecv(Engine::Socket *socket,Engine::Paquet &paquet);
 		private:
 			int waitTime;
 		};

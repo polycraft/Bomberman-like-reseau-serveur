@@ -1,23 +1,16 @@
 #ifndef BOMBERMAN_H
 #define BOMBERMAN_H
-class Bomberman;
-
-//Trie les bomberman par ordre d'id
-class CompareBomberman
-{
-    public:
-    bool operator()(const Bomberman* a,const Bomberman *b);
-};
 
 #include "Type.h"
-#include "../Map.h"
-#include <map>
-#include "Property.h"
-#include "../Engine/util/IObserverTimer.h"
-#include "../Engine/Text.h"
-#include "../Engine/NetworkEngine/Socket.h"
 #include "../Engine/NetworkEngine/IObserverSocketRecv.h"
-#include "../GameType/GameType.h"
+#include "../Engine/NetworkEngine/Socket.h"
+#include "../Engine/util/IObserverTimer.h"
+#include "Property.h"
+#include <map>
+
+
+class GameType;
+
 
 typedef enum EPropertyBomberman
 {
@@ -35,12 +28,12 @@ typedef enum EPropertyBomberman
     PB_timeInvinsible=11
 } EPropertyBomberman;
 
-class Bomberman : public Type, public IObserverTimer,public IObserverSocketRecv
+class Bomberman : public Type, public Engine::IObserverTimer,public Engine::IObserverSocketRecv
 {
 
 public:
-    Bomberman(Socket *sock, GameType *gameType,map<EPropertyBomberman,Property*>& property);
-    Bomberman(Socket *sock, GameType *gameType,int id);
+    Bomberman(Engine::Socket *sock, GameType *gameType,std::map<EPropertyBomberman,Property*>& property);
+    Bomberman(Engine::Socket *sock, GameType *gameType,int id);
     ~Bomberman();
     EType getType();
 
@@ -69,8 +62,8 @@ public:
     void setInvinsible(int time);
     void lostLife(int nb=1);
 
-    void updateRecv(Socket *sock,Paquet &paquet);
-    void sendData(Paquet &paquet);
+    void updateRecv(Engine::Socket *sock,Engine::Paquet &paquet);
+    void sendData(Engine::Paquet &paquet);
 	template<class T> void sendData(T *data)
 		{
 				socket->sendData<T>(data);
@@ -79,9 +72,9 @@ public:
     bool isConnected();
 
 protected:
-    map<EPropertyBomberman,Property*> property;
-    Thread* thread;
-    Socket* socket;
+    std::map<EPropertyBomberman,Property*> property;
+    Engine::Thread* thread;
+    Engine::Socket* socket;
     bool stop;
     GameType *gameType;
     bool connected;

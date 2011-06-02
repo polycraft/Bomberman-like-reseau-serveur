@@ -1,5 +1,12 @@
 #include "ExplosionFlare.h"
 
+#include "ManagerExplosion.h"
+#include "../Engine/util/Timer.h"
+#include "../GameType/GameType.h"
+#include "../Server.h"
+#include "../Map.h"
+
+using namespace Engine;
 
 ExplosionFlare::ExplosionFlare(int x, int y, int id, int speed, int power, EExplose typeExplose, GameType *gametype, ManagerExplosion *manager)
 {

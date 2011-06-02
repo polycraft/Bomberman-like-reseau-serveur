@@ -1,4 +1,11 @@
 #include "GameType.h"
+#include "../Type/Bomb.h"
+#include "../Type/Bomberman.h"
+#include "../Server.h"
+#include "../Type/ManagerExplosion.h"
+#include "../Type/ExplosionFlare.h"
+
+using namespace Engine;
 
 GameType::GameType(Server *server,int partTime,Socket *socket):partTime(partTime),server(server)
 {

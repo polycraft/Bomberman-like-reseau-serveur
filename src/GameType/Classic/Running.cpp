@@ -1,5 +1,11 @@
 #include "Running.h"
 
+#include "Classic.h"
+#include "../../CollisionDetector.h"
+#include "../../Engine/util/Timer.h"
+
+using namespace Engine;
+
 namespace GameTypeSpace
 {
 	namespace ClassicSpace
@@ -18,11 +24,11 @@ namespace GameTypeSpace
 			cout << "GameType is Running" << endl;
 		    this->nextEtat();
 		}
-		
+
 
 		void Running::run()
 		{
-			
+
 		}
 
 		void Running::updateTimer(unsigned int delay)
@@ -34,7 +40,7 @@ namespace GameTypeSpace
 
 		void Running::updateRecv(Socket *socket,Paquet &paquet)
 		{
-			
+
 		}
 	}
 }

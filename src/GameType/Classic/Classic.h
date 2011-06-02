@@ -1,22 +1,25 @@
 #ifndef CLASSIC_H
 #define CLASSIC_H
 
-#include "../../Type/Paquet.h"
+
+
 #include "../GameType.h"
-#include "../../CollisionDetector.h"
-#include "../Phase.h"
 #include "../../Engine/NetworkEngine/IObserverSocketRecv.h"
 #include "../../Engine/NetworkEngine/Socket.h"
-#include "../../Type/ManagerExplosion.h"
-#include "../../Type/ExplosionFlare.h"
 
-
+class Server;
+class Bomberman;
+class Bomb;
+class ExplosionFlare;
+class ManagerExplosion;
+class CollisionDetector;
+class Phase;
 
 namespace GameTypeSpace
 {
 	namespace ClassicSpace
 	{
-		
+
 	    typedef enum EPhase
 	    {
 	        P_Current=0,
@@ -33,14 +36,14 @@ namespace GameTypeSpace
 	{
 
 	public:
-		Classic(Server *server,Socket *socket);
+		Classic(Server *server,Engine::Socket *socket);
 		virtual ~Classic();
 		void update();
 
 
 		Bomberman* getPlayer();
 		void setPlayer(Bomberman*);
-		
+
 
         Phase* getPhase(ClassicSpace::EPhase phase);
 
@@ -48,7 +51,7 @@ namespace GameTypeSpace
 		void updateExplosion(ExplosionFlare *flare,int power,int x,int y);
         void destroyManagerExplosion(ManagerExplosion* manager);
 
-        void updateRecv(Socket *,Paquet &paquet);
+        void updateRecv(Engine::Socket *,Engine::Paquet &paquet);
 
 		int getPartTime();
 		int getWaitingTime();
