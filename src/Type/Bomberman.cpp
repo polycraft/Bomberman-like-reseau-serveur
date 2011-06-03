@@ -18,6 +18,7 @@ Bomberman::Bomberman(Socket *sock,GameType *gameType,int id):socket(sock),stop(f
 {
 	this->property[PB_id]=new Property(id);
 	thread = sock->run(&stop);
+	socket->addObserverRecv(this);
 }
 
 Bomberman::~Bomberman()

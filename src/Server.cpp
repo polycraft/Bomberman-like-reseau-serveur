@@ -20,22 +20,32 @@ Server::Server()
     Loader *loaderMap=new LoaderMap();
     ManagerRessource::addLoader("map",loaderMap);
 
-    mapName="src/ressource/map/test.map";
+    mapName="test";
 
-	map = ManagerRessource::getRessource<Map>(mapName);
+	map = ManagerRessource::getRessource<Map>("src/ressource/map/"+mapName+".map");
 	cout << "Map loaded"<<endl;
 
-	Socket *socket = new Socket(5001,TP_TCP);
-	socket->addObserverRecv(this);
+    Socket *socket;
+    try
+    {
+        socket = new Socket(5000,TP_TCP);
+    }
+    catch(ExceptionListen e)
+    {
+        cout << "Erreur d'écoutage!" << endl;
+        return;
+    }
 	GameType *gameType=new GameTypeSpace::Classic(this,socket);
 
 
     bool continuer=true;
+    Thread* thread=socket->run(&continuer);
 	while(continuer)
 	{
         gameType->update();
         continuer=engine->run();
 	}
+	Threadable::join(thread);
 }
 
 Server::~Server()

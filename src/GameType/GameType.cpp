@@ -39,7 +39,7 @@ void GameType::updateAccept(Socket* s)
             break;//id libre
     }
 
-    socket->addObserverRecv(server);
+    s->addObserverRecv(server);
 
     //Création d'un nouveau joueur
     playerNetwork.insert(new Bomberman(s,this,id));
