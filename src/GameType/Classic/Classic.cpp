@@ -227,8 +227,8 @@ namespace GameTypeSpace
                     break;
                     case 'p':
                     {
-                        PaquetPhase paquetPhase={'p', Engine::Timer::getTimer()->getTime(),phaseCurrent};
-                        bomberman->sendData<PaquetId>(&paquetPhase);
+                         PaquetPhase paquetPhase={'p', Engine::Timer::getTimer()->getTime(),phaseCurrent};
+                        bomberman->sendData<PaquetPhase>(&paquetPhase);
                     }
                 }
             }
