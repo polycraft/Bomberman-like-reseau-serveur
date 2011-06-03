@@ -2,6 +2,7 @@
 #define GAMETYPE_H
 
 #include "../Engine/NetworkEngine/IObserverSocketAccept.h"
+#include "../Engine/NetworkEngine/Paquet.h"
 #include <set>
 #include "../Type/CompareBomberman.h"
 #include "../Type/Bomberman.h"
@@ -37,6 +38,8 @@ public:
         }
     }
 
+    void updateNetwork(Bomberman* bomberman,Engine::Paquet& paquet);
+
     template <class T> void updateAllNetwork(T& paquet)
     {
         for(std::set<Bomberman*,CompareBomberman>::iterator it=playerNetwork.begin(); it!=playerNetwork.end(); ++it)
@@ -47,6 +50,9 @@ public:
             }
         }
     }
+
+    void updateAllNetwork(Engine::Paquet& paquet);
+
 	set<Bomberman*,CompareBomberman>& getPlayerNetwork();
 	virtual void updateRecvBomberman(Bomberman* bomberman,Engine::Socket *sock,Engine::Paquet& paquet)=0;
 protected:

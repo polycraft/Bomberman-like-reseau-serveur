@@ -53,6 +53,8 @@
 		<Unit filename="Engine/Exception/ExceptionBadRessource.h" />
 		<Unit filename="Engine/Exception/ExceptionConnect.cpp" />
 		<Unit filename="Engine/Exception/ExceptionConnect.h" />
+		<Unit filename="Engine/Exception/ExceptionInitSocket.cpp" />
+		<Unit filename="Engine/Exception/ExceptionInitSocket.h" />
 		<Unit filename="Engine/Exception/ExceptionInvalidSocket.cpp" />
 		<Unit filename="Engine/Exception/ExceptionInvalidSocket.h" />
 		<Unit filename="Engine/Exception/ExceptionListen.cpp" />
@@ -162,6 +164,8 @@
 		<Unit filename="GameType/Classic/Classic.h" />
 		<Unit filename="GameType/Classic/Dead.cpp" />
 		<Unit filename="GameType/Classic/Dead.h" />
+		<Unit filename="GameType/Classic/Ending.cpp" />
+		<Unit filename="GameType/Classic/Ending.h" />
 		<Unit filename="GameType/Classic/HurryUp.cpp" />
 		<Unit filename="GameType/Classic/HurryUp.h" />
 		<Unit filename="GameType/Classic/Initialisation.cpp" />
@@ -188,6 +192,8 @@
 		<Unit filename="Type/Bonus.h" />
 		<Unit filename="Type/BreakableBloc.cpp" />
 		<Unit filename="Type/BreakableBloc.h" />
+		<Unit filename="Type/CompareBomberman.cpp" />
+		<Unit filename="Type/CompareBomberman.h" />
 		<Unit filename="Type/Explosion.cpp" />
 		<Unit filename="Type/Explosion.h" />
 		<Unit filename="Type/ExplosionFlare.cpp" />
@@ -204,6 +210,7 @@
 		<Extensions>
 			<code_completion />
 			<debugger />
+			<envvars />
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>

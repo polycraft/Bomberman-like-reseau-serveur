@@ -49,3 +49,26 @@ set<Bomberman*,CompareBomberman>& GameType::getPlayerNetwork()
 {
     return playerNetwork;
 }
+
+void GameType::updateNetwork(Bomberman* bomberman,Paquet& paquet)
+{
+    for(std::set<Bomberman*,CompareBomberman>::iterator it=playerNetwork.begin(); it!=playerNetwork.end(); ++it)
+    {
+        //Envoie du paquet à tout les joueurs sauf le joueur d'origine
+        if((*it)->getProperty<int>(PB_id)!=bomberman->getProperty<int>(PB_id) && (*it)->isConnected())
+        {
+            (*it)->sendData(paquet);
+        }
+    }
+}
+
+void GameType::updateAllNetwork(Paquet& paquet)
+    {
+        for(std::set<Bomberman*,CompareBomberman>::iterator it=playerNetwork.begin(); it!=playerNetwork.end(); ++it)
+        {
+            if((*it)->isConnected())
+            {
+                (*it)->sendData(paquet);
+            }
+        }
+    }

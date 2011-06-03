@@ -23,7 +23,7 @@ namespace GameTypeSpace
     using namespace Engine;
 	Classic::Classic(Server *server,Socket *socket):GameType(server,10, socket)
 	{
-		this->partTime = 4000;
+		this->partTime = 15000;
 		this->waitTime = 4000;
 		this->player = NULL;
 	    phaseCurrent=P_Initialisation;

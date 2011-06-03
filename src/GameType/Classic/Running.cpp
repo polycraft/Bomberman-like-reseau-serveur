@@ -51,7 +51,7 @@ namespace GameTypeSpace
                         //Paquet provient bien du bon joueur
                         if(paquetBomb->idBomber==bomberman->getProperty<int>(PB_id))
                         {
-                            gameType->updateAllNetwork<Paquet>(paquet);
+                            gameType->updateAllNetwork(paquet);
                         }
                     }
                     break;
@@ -62,7 +62,7 @@ namespace GameTypeSpace
                         //Paquet provient bien du bon joueur
                         if(paquetMove->idBomber==bomberman->getProperty<int>(PB_id))
                         {
-                            gameType->updateNetwork<Paquet>(bomberman,paquet);
+                            gameType->updateNetwork(bomberman,paquet);
                         }
                     }
                     break;
