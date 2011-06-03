@@ -14,6 +14,7 @@ using namespace std;
 Server::Server()
 {
     engine =  new MainEngine();
+    srand ( time(NULL) );
 
     //loaderMap
     Loader *loaderMap=new LoaderMap();
