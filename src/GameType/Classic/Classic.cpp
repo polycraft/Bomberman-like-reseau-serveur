@@ -230,6 +230,7 @@ namespace GameTypeSpace
                          PaquetPhase paquetPhase={'p', Engine::Timer::getTimer()->getTime(),phaseCurrent};
                         bomberman->sendData<PaquetPhase>(&paquetPhase);
                     }
+                    break;
                 }
             }
             break;

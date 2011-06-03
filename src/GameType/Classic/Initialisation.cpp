@@ -5,6 +5,7 @@
 #include "Classic.h"
 #include "../../CollisionDetector.h"
 #include "../../Engine/util/Timer.h"
+#include "../../Type/Paquet.h"
 
 using namespace Engine;
 
@@ -14,6 +15,7 @@ namespace GameTypeSpace
 	{
 		Initialisation::Initialisation(GameTypeSpace::Classic *gameType,CollisionDetector *collision)  : PhaseClassic(gameType,collision)
 		{
+
 		}
 
 		Initialisation::~Initialisation()
@@ -22,58 +24,60 @@ namespace GameTypeSpace
 
 		void Initialisation::init()
 		{
-
+            randomSpawn=rand()%(gameType->getServer()->getMap()->getCountSpawn()-1) +1;
+            nbReady=0;
+            prevSpawn=rand()%(gameType->getServer()->getMap()->getCountSpawn()-1) +1;
+            waiting=false;
+            this->nextEtat();
 			/*if(this->gameType->getPlayerNetwork().size() >= 2)
 			{*/
 
-				Timer::getTimer()->addListener(this,this->gameType->getWaitingTime());
-				cout << "Waiting " << this->gameType->getWaitingTime()/1000 << " secondes to Begin the Party !" << endl;
-				this->nextEtat();
+				/*Timer::getTimer()->addListener(this,this->gameType->getWaitingTime());
+
+				this->nextEtat();*/
 
 			//}
 		}
 
 		void Initialisation::run()
 		{
-
-		    Map *map=gameType->getServer()->getMap();
-
-		    //Création du bomberman
-		    /*Bomberman *bomber=new Bomberman(0);
-		    bomber->setProperty<int>(PB_bombPower,2);
-		    bomber->setProperty<double>(PB_vitesse,0.05);
-		    bomber->setProperty<int>(PB_nbBomb,2);
-		    bomber->setProperty<int>(PB_nbBombMax,2);
-		    bomber->setProperty<int>(PB_timerBomb,2000);
-		    bomber->setProperty<int>(PB_timerPutBomb,200);
-		    bomber->setProperty<int>(PB_vitesseExplode,2);
-		    bomber->setProperty<int>(PB_life,2);
-		    bomber->setProperty<bool>(PB_canPutBomb,true);
-		    bomber->setProperty<int>(PB_timeInvinsible,2000);
-		    bomber->setProperty<bool>(PB_invinsible,false);
-		    bomber->setInvinsible(5000);
-
-		    this->gameType->setPlayer(bomber);
-		    map->addBomberman(bomber,map->getSpawn(0));
-
-            bomber=new Bomberman(1);
-		    this->gameType->getPlayerNetwork().push_back(bomber);
-		    map->addBomberman(bomber,map->getSpawn(1));*/
-
-
+            if(nbReady>=2 && !waiting)
+            {
+                waiting=true;
+                Timer::getTimer()->addListenerOnce(this,this->gameType->getWaitingTime());
+                cout << "Waiting " << this->gameType->getWaitingTime()/1000 << " secondes to Begin the Party !" << endl;
+            }
 		}
 
 		void Initialisation::updateRecvBomberman(Bomberman* bomberman,Socket *socket,Paquet &paquet)
 		{
+            char type=(paquet.getData())[0];
+            switch(type)
+            {
+                case 'a'://Demande d'information
+                {
+                    PaquetAsk *paquetAsk=paquet.getData<PaquetAsk*>();
+                    switch(paquetAsk->paquet)
+                    {
+                        case 's'://spawn
+                        {
+                            nbReady++;
+                            //Calcule du nouveau spawn
+                            prevSpawn=(prevSpawn%randomSpawn)%gameType->getServer()->getMap()->getCountSpawn();
 
+                            PaquetSpawn paquetSpawn={'s', Engine::Timer::getTimer()->getTime(),bomberman->getProperty<int>(PB_id),prevSpawn-1};
+                            bomberman->sendData<PaquetSpawn>(&paquetSpawn);
+                        }
+                        break;
+                    }
+                }
+                break;
+            }
 		}
 
 		void Initialisation::updateTimer(unsigned int delay)
 		{
-			Timer::getTimer()->removeListener(this,this->gameType->getWaitingTime());
-
 			end(P_Next);
-
 		}
 	}
 }

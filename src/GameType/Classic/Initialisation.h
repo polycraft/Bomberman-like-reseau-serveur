@@ -25,6 +25,11 @@ namespace GameTypeSpace
 			void run();
 			void updateTimer(unsigned int delay);
             virtual void updateRecvBomberman(Bomberman* bomberman,Engine::Socket *socket,Engine::Paquet &paquet);
+        private:
+            bool waiting;
+            int nbReady;
+            int prevSpawn;
+            int randomSpawn;
 		};
 	}
 }
