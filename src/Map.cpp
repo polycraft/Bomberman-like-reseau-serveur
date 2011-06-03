@@ -12,6 +12,7 @@ Map::Map(string &name, EGameType gameType, int width, int height)  : Ressource(n
 	this->gameType = gameType;
 	this->width = width;
 	this->height = height;
+	this->spawnCount = 0;
 	Type ***temp = new Type**[this->width];
 	for(int x=0; x<this->width;x++)
 	{
@@ -108,8 +109,14 @@ void Map::buildMap()
                 this->addObject(new BreakableBloc(), i%(width), height - i/(width)-1, T_Dyn);
             break;
             case 'c':
+				this->spawnCount++;
                 this->addSpawn(i%(width), height - i/(width)-1);
             break;
         }
 	}
+}
+
+int Map::getCountSpawn()
+{
+	return this->spawnCount;
 }

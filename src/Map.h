@@ -48,11 +48,14 @@ public:
 	void setEngine(Engine::MainEngine* engine);
 	void setDataMap(char* dataMap);
 	void buildMap();
+	int getCountSpawn();
 
 private:
 	int gameType;
 	int width;
 	int height;
+	int spawnCount;
+
 	std::vector<Engine::Scene*> scene;
 	std::vector<SCoordinate> spawn;
 	Type ***map;
