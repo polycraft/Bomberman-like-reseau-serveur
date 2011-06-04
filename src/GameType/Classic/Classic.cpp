@@ -25,7 +25,6 @@ namespace GameTypeSpace
 	{
 		this->partTime = 60000;
 		this->waitTime = 4000;
-		this->player = NULL;
 	    phaseCurrent=P_Initialisation;
 
 	    collision=new CollisionDetector(server->getMap());
@@ -111,13 +110,13 @@ namespace GameTypeSpace
 
 	void Classic::explode(Bomb* bomb,int speed,int power)
 	{
-
 	    int tmpX=bomb->getTransX();tmpX=tmpX/10-1;
 	    int tmpY=bomb->getTransY();tmpY=tmpY/10-1;
 
 	    this->server->getMap()->set(NULL,tmpX,tmpY);
+	    delete bomb;
 
-	    new ManagerExplosion(tmpX,tmpY,bomb->getIdOwner(), speed, power, this);
+	    new ManagerExplosion(tmpX,tmpY,bomb->getOwner(), speed, power, this);
 	}
 
 	void Classic::updateExplosion(ExplosionFlare *flare,int power,int x,int y)
@@ -175,21 +174,10 @@ namespace GameTypeSpace
 
 	void Classic::destroyManagerExplosion(ManagerExplosion* manager)
 	{
-	    delete manager;
-	    player->setProperty<int>(PB_nbBomb,player->getProperty<int>(PB_nbBomb)+1);
+	    manager->getOwner()->setProperty<int>(PB_nbBomb,manager->getOwner()->getProperty<int>(PB_nbBomb)+1);
+
+	     delete manager;
 	}
-
-	Bomberman* Classic::getPlayer()
-	{
-		return player;
-	}
-
-	void Classic::setPlayer(Bomberman* bomber)
-	{
-	    player=bomber;
-	}
-
-
 
     Phase* Classic::getPhase(EPhase phase)
     {

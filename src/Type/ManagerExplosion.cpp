@@ -5,12 +5,13 @@
 #include "ExplosionFlare.h"
 
 using namespace Engine;
+class Bomberman;
 
-ManagerExplosion::ManagerExplosion(int x, int y, int id, int speed, int power, GameType *gametype)
+ManagerExplosion::ManagerExplosion(int x, int y, Bomberman* owner, int speed, int power, GameType *gametype)
 {
 	this->x=x;
 	this->y=y;
-	this->id = id;
+	this->owner = owner;
 	this->speed = speed;
 	this->power = power;
 	this->powercurrent=0;
@@ -18,11 +19,11 @@ ManagerExplosion::ManagerExplosion(int x, int y, int id, int speed, int power, G
 	this->nbEnd = 0; // nb de branches qui ont finis dexploser
 	this->nbExploSide= 0;
 
-	this->listeExplosionFlare.push_back(new ExplosionFlare(x,y,id, speed, power, T_Emitter, gametype, this));
-	this->listeExplosionFlare.push_back(new ExplosionFlare(x,y,id, speed, power, T_Left, gametype, this));
-	this->listeExplosionFlare.push_back(new ExplosionFlare(x,y,id, speed, power, T_Right, gametype, this));
-	this->listeExplosionFlare.push_back(new ExplosionFlare(x,y,id, speed, power, T_Up, gametype, this));
-	this->listeExplosionFlare.push_back(new ExplosionFlare(x,y,id, speed, power, T_Down, gametype, this));
+	this->listeExplosionFlare.push_back(new ExplosionFlare(x,y,owner, speed, power, T_Emitter, gametype, this));
+	this->listeExplosionFlare.push_back(new ExplosionFlare(x,y,owner, speed, power, T_Left, gametype, this));
+	this->listeExplosionFlare.push_back(new ExplosionFlare(x,y,owner, speed, power, T_Right, gametype, this));
+	this->listeExplosionFlare.push_back(new ExplosionFlare(x,y,owner, speed, power, T_Up, gametype, this));
+	this->listeExplosionFlare.push_back(new ExplosionFlare(x,y,owner, speed, power, T_Down, gametype, this));
 
 
 }
@@ -53,5 +54,10 @@ void ManagerExplosion::updateTimer(unsigned int delay)
 {
 	Timer::getTimer()->removeListener(this,500);
 	this->gameType->destroyManagerExplosion(this);
+}
+
+Bomberman* ManagerExplosion::getOwner()
+{
+    return owner;
 }
 

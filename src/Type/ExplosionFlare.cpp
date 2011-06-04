@@ -7,12 +7,13 @@
 #include "../Map.h"
 
 using namespace Engine;
+class Bomberman;
 
-ExplosionFlare::ExplosionFlare(int x, int y, int id, int speed, int power, EExplose typeExplose, GameType *gametype, ManagerExplosion *manager)
+ExplosionFlare::ExplosionFlare(int x, int y, Bomberman* owner, int speed, int power, EExplose typeExplose, GameType *gametype, ManagerExplosion *manager)
 {
 	this->x=x;
 	this->y=y;
-	this->id = id;
+	this->owner = owner;
 	this->speed = speed;
 	this->power = 2;
 	this->powercurrent=0;
@@ -118,7 +119,7 @@ void ExplosionFlare::updateTimer(unsigned int delay)
 
 }
 
-int ExplosionFlare::getID()
+Bomberman* ExplosionFlare::getOwner()
 {
-	return this->id;
+	return this->owner;
 }

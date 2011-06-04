@@ -4,6 +4,10 @@
 #include "../../CollisionDetector.h"
 #include "../../Engine/util/Timer.h"
 #include "../../Type/Paquet.h"
+#include "../../Type/Bomb.h"
+#include "../../Server.h"
+#include "../../Map.h"
+
 
 using namespace Engine;
 
@@ -48,9 +52,20 @@ namespace GameTypeSpace
                     {
                         PaquetBomb *paquetBomb=paquet.getData<PaquetBomb*>();
 
-                        //Paquet provient bien du bon joueur
+                         //Paquet provient bien du bon joueur
                         if(paquetBomb->idBomber==bomberman->getProperty<int>(PB_id))
                         {
+                            Bomb* bomb=new Bomb(
+                                        this->gameType,
+                                        bomberman,
+                                        paquetBomb->explodeTime,
+                                        paquetBomb->vitesseExplode,
+                                        paquetBomb->power);
+
+                            gameType->getServer()->getMap()->addObject(bomb,paquetBomb->x,paquetBomb->y,T_Dyn);
+
+                            bomberman->setProperty<int>(PB_nbBomb,bomberman->getProperty<int>(PB_nbBomb)-1);
+
                             gameType->updateAllNetwork(paquet);
                         }
                     }

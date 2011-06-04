@@ -9,24 +9,24 @@
 class GameType;
 class ManagerExplosion;
 class Explosion;
-
+class Bomberman;
 
 class ExplosionFlare : public Engine::IObserverTimer
 {
 	public:
-		ExplosionFlare(int x, int y, int id, int speed, int power, EExplose typeExplose, GameType *gametype, ManagerExplosion *manager);
+		ExplosionFlare(int x, int y, Bomberman* owner, int speed, int power, EExplose typeExplose, GameType *gametype, ManagerExplosion *manager);
 		~ExplosionFlare();
 		void nextExplose();
 		void endExplose();
 		EExplose getType();
 		void updateTimer(unsigned int delay);
-		int getID();
+		Bomberman* getOwner();
 
 	private:
 		int x;
 		int y;
 		std::vector<Explosion*> listeExplosions;
-		int id;
+		Bomberman* owner;
 		int speed;
 		int power;
 		int powercurrent;

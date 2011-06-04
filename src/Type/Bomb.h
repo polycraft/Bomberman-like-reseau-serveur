@@ -6,20 +6,21 @@
 
 
 class GameType;
+class Bomberman;
 
 class Bomb : public Type, public Engine::IObserverTimer
 {
 
 public:
-	Bomb(GameType* gameType,int idOwner, int time, int speed, int power);
+	Bomb(GameType* gameType,Bomberman* owned, int time, int speed, int power);
 	~Bomb();
 	EType getType();
 	void updateTimer(unsigned int);
-	int getIdOwner();
+	Bomberman* getOwner();
 	void explode();
 
 private:
-	int idOwner;
+	Bomberman* owner;
 
 	GameType* gameType;
 	int speed;

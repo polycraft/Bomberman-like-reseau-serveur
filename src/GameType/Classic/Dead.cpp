@@ -21,7 +21,7 @@ namespace GameTypeSpace
 
 		void Dead::init()
 		{
-            this->gameType->getPlayer()->setVisible(false);
+            //this->gameType->getPlayer()->setVisible(false);
             this->nextEtat();
 		}
 

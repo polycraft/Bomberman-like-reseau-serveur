@@ -4,10 +4,11 @@
 #include "../Engine/ManagerRessource.h"
 
 using namespace Engine;
+class Bomberman;
 
-Bomb::Bomb(GameType* gameType,int idOwner, int time, int speed, int power):gameType(gameType)
+Bomb::Bomb(GameType* gameType,Bomberman *owner, int time, int speed, int power):gameType(gameType)
 {
-	this->idOwner = idOwner;
+	this->owner = owner;
 	this->speed = speed;
 	this->power = power;
 	this->time = time;
@@ -31,7 +32,6 @@ void Bomb::updateTimer(unsigned int delay)
 {
 	this->setVisible(false);
 	this->gameType->explode(this,speed,power);
-	this->destroy();
 }
 
 
@@ -40,7 +40,7 @@ EType Bomb::getType()
 	return T_Bomb;
 }
 
-int Bomb::getIdOwner()
+Bomberman* Bomb::getOwner()
 {
-    return idOwner;
+    return owner;
 }

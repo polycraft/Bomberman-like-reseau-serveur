@@ -41,11 +41,7 @@ namespace GameTypeSpace
 		void update();
 
 
-		Bomberman* getPlayer();
-		void setPlayer(Bomberman*);
-
-
-        Phase* getPhase(ClassicSpace::EPhase phase);
+		Phase* getPhase(ClassicSpace::EPhase phase);
 
         virtual void explode(Bomb* bomb,int speed,int power);
 		void updateExplosion(ExplosionFlare *flare,int power,int x,int y);
@@ -61,7 +57,6 @@ namespace GameTypeSpace
 		int partTime;
 		CollisionDetector *collision;
 		ClassicSpace::EPhase phaseCurrent;
-		Bomberman *player;
 		Phase *phase[5];
 	};
 }
