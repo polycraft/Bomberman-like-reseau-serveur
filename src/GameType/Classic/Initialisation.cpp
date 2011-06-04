@@ -24,11 +24,12 @@ namespace GameTypeSpace
 
 		void Initialisation::init()
 		{
-            randomSpawn=rand()%(gameType->getServer()->getMap()->getCountSpawn()-1) +1;
+		    gameType->getServer()->getMap()->buildMap();
+            randomSpawn=rand()%(gameType->getServer()->getMap()->getCountSpawn()) +1;
             nbReady=0;
-            prevSpawn=rand()%(gameType->getServer()->getMap()->getCountSpawn()-1) +1;
+            prevSpawn=rand()%(gameType->getServer()->getMap()->getCountSpawn());
             waiting=false;
-            gameType->getServer()->getMap()->buildMap();
+
             this->nextEtat();
 			/*if(this->gameType->getPlayerNetwork().size() >= 2)
 			{*/
