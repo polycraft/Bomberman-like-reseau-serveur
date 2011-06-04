@@ -70,7 +70,18 @@ namespace GameTypeSpace
 
                             PaquetSpawn paquetSpawn={'s', Engine::Timer::getTimer()->getTime(),bomberman->getProperty<int>(PB_id),prevSpawn-1};
 
+
+
                             gameType->updateAllNetwork<PaquetSpawn>(paquetSpawn);
+
+                            vector<PaquetSpawn>::iterator it;
+
+                            for ( it=listSpawn.begin() ; it < listSpawn.end(); it++ )
+                            {
+                                bomberman->sendData<PaquetSpawn>(&(*it));
+                            }
+
+                            listSpawn.push_back(paquetSpawn);
 
                             cout << "send spawn for " << bomberman->getProperty<int>(PB_id) << " : Spawn no " << prevSpawn << endl;
                         }

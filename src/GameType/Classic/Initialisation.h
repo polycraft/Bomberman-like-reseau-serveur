@@ -4,6 +4,8 @@
 #include "../../Engine/util/IObserverTimer.h"
 #include "../../Engine/NetworkEngine/IObserverSocketRecv.h"
 #include "PhaseClassic.h"
+#include <vector>
+#include "../../Type/Paquet.h"
 
 namespace GameTypeSpace
 {
@@ -30,6 +32,7 @@ namespace GameTypeSpace
             int nbReady;
             int prevSpawn;
             int randomSpawn;
+            std::vector<PaquetSpawn> listSpawn;
 		};
 	}
 }
