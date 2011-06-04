@@ -13,8 +13,6 @@ Bomb::Bomb(GameType* gameType,Bomberman *owner, int time, int speed, int power):
 	this->power = power;
 	this->time = time;
 	Timer::getTimer()->addListenerOnce(this,time);
-	this->attach(ManagerRessource::getRessource("src/ressource/object/bomb.obj"),
-		ManagerRessource::getRessource("src/ressource/texture/bomb.jpg"));
 }
 
 Bomb::~Bomb()

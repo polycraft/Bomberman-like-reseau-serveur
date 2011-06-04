@@ -50,11 +50,13 @@ namespace GameTypeSpace
                 {
                     case 'b'://Bombe
                     {
+
                         PaquetBomb *paquetBomb=paquet.getData<PaquetBomb*>();
 
                          //Paquet provient bien du bon joueur
                         if(paquetBomb->idBomber==bomberman->getProperty<int>(PB_id))
                         {
+                            cout << "bomb !"<< endl;
                             Bomb* bomb=new Bomb(
                                         this->gameType,
                                         bomberman,

@@ -9,7 +9,7 @@ using namespace Engine;
 
 GameType::GameType(Server *server,int partTime,Socket *socket):partTime(partTime),server(server)
 {
-	this->socket= socket;
+    this->socket= socket;
     socket->addObserverAccept(this);
     stop=false;
     thread=socket->run(&stop);
@@ -27,7 +27,7 @@ Server* GameType::getServer()
 
 void GameType::updateAccept(Socket* s)
 {
-	cout << "Connection InComming" << endl;
+    cout << "Connection InComming" << endl;
     //Recherche d'un id libre
     int id=0;
 
@@ -63,12 +63,14 @@ void GameType::updateNetwork(Bomberman* bomberman,Paquet& paquet)
 }
 
 void GameType::updateAllNetwork(Paquet& paquet)
+{
+
+    for(std::set<Bomberman*,CompareBomberman>::iterator it=playerNetwork.begin(); it!=playerNetwork.end(); ++it)
     {
-        for(std::set<Bomberman*,CompareBomberman>::iterator it=playerNetwork.begin(); it!=playerNetwork.end(); ++it)
+        if((*it)->isConnected())
         {
-            if((*it)->isConnected())
-            {
-                (*it)->sendData(paquet);
-            }
+
+            (*it)->sendData(paquet);
         }
     }
+}
