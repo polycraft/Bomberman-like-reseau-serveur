@@ -220,8 +220,119 @@ namespace GameTypeSpace
                     }
                     break;
                 }
+				
             }
             break;
+
+			case 'm'://Mouvement a accepter
+			{
+				double tmpX = bomberman->getTransX();
+				double tmpY = bomberman->getTransY();
+				int x=tmpX;x=x/10-1;
+				int y=tmpY;y=y/10-1;
+
+				PaquetMove *paquetMove=paquet.getData<PaquetMove*>();
+				//verif du deplacement
+				double vitesse=bomberman->getProperty<double>(PB_vitesse)*Timer::getTimer()->getTimePerFrame();
+				if(vitesse>8)
+				{
+					vitesse=8;
+				}
+				double distance=3.75;
+
+				double xMin=(tmpX-vitesse-distance);
+				double yMin=(tmpY-vitesse-distance);
+				double xMax=(tmpX-vitesse+distance);
+				double yMax=(tmpY-vitesse+distance);
+
+				double rotate=0;
+
+				if(paquetMove->rotation == 180)//vers la gauche
+				{
+					int point[4]={xMin-vitesse,xMax,yMin,yMax};
+					point[0]=point[0]/10-1;
+					point[2]=point[2]/10-1;
+					point[3]=point[3]/10-1;
+
+					int position=tmpX;
+					position=position/10-1;
+
+					if((position==point[0]) || (collision->detect(T_Bomberman,point[0],point[2])!=C_Block && collision->detect(T_Bomberman,point[0],point[3])!=C_Block))
+					{
+						this->getPlayer()->translation(-vitesse,0,0);
+						this->getPlayer()->setRotation(0,0,paquetMove->rotation);
+					}
+					else//envoi du paquet d'erreur
+					{
+						PaquetError error= {'r', Engine::Timer::getTimer()->getTime(), 'm'};
+					}
+				}
+
+				if(paquetMove->rotation == 0)//vers la droite
+				{
+					int point[4]={xMin,xMax+vitesse,yMin,yMax};
+					point[1]=point[1]/10-1;
+					point[2]=point[2]/10-1;
+					point[3]=point[3]/10-1;
+
+					int position=tmpX;
+					position=position/10-1;
+
+					if((position==point[1]) || (collision->detect(T_Bomberman,point[1],point[2])!=C_Block && collision->detect(T_Bomberman,point[1],point[3])!=C_Block))
+					{
+						this->getPlayer()->translation(vitesse,0,0);
+						this->getPlayer()->setRotation(0,0,paquetMove->rotation);
+					}
+					else//envoi du paquet d'erreur
+					{
+						PaquetError error= {'r', Engine::Timer::getTimer()->getTime(), 'm'};
+					}
+
+				}
+
+				if(paquetMove->rotation == 90)//vers le haut
+				{
+					int point[4]={xMin,xMax,yMin,yMax+vitesse};
+					point[0]=point[0]/10-1;
+					point[1]=point[1]/10-1;
+					point[3]=point[3]/10-1;
+
+					int position=tmpY;
+					position=position/10-1;
+
+					if((position==point[3]) || (collision->detect(T_Bomberman,point[0],point[3])!=C_Block && collision->detect(T_Bomberman,point[1],point[3])!=C_Block))
+					{
+						this->getPlayer()->translation(0,vitesse,0);
+						this->getPlayer()->setRotation(0,0,paquetMove->rotation);
+					}
+					else//envoi du paquet d'erreur
+					{
+						PaquetError error= {'r', Engine::Timer::getTimer()->getTime(), 'm'};
+					}
+				}
+
+				if(paquetMove->rotation == -90)//vers le bas
+				{
+					int point[4]={xMin,xMax,yMin-vitesse,yMax};
+					point[0]=point[0]/10-1;
+					point[1]=point[1]/10-1;
+					point[2]=point[2]/10-1;
+
+					int position=tmpY;
+					position=position/10-1;
+
+					if((position==point[2]) || (collision->detect(T_Bomberman,point[0],point[2])!=C_Block && collision->detect(T_Bomberman,point[1],point[2])!=C_Block))
+					{
+						this->getPlayer()->translation(0,-vitesse,0);
+						this->getPlayer()->setRotation(0,0,paquetMove->rotation);
+					}
+					else//envoi du paquet d'erreur
+					{
+						PaquetError error= {'r', Engine::Timer::getTimer()->getTime(), 'm'};
+					}
+				}
+			}
+			break;
         }
     }
 
