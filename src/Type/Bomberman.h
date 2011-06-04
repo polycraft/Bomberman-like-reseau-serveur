@@ -7,7 +7,7 @@
 #include "../Engine/util/IObserverTimer.h"
 #include "Property.h"
 #include <map>
-
+#include <string>
 
 class GameType;
 
@@ -72,6 +72,9 @@ public:
     bool isConnected();
     void setConnected(bool c);
 
+    std::string& getName();
+    void setName(std::string);
+
 protected:
     std::map<EPropertyBomberman,Property*> property;
     Engine::Thread* thread;
@@ -79,6 +82,7 @@ protected:
     bool stop;
     GameType *gameType;
     bool connected;
+    std::string name;
 };
 
 
