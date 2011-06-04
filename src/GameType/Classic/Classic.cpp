@@ -220,7 +220,7 @@ namespace GameTypeSpace
                     }
                     break;
                 }
-				
+
             }
             break;
 
@@ -259,8 +259,8 @@ namespace GameTypeSpace
 
 					if((position==point[0]) || (collision->detect(T_Bomberman,point[0],point[2])!=C_Block && collision->detect(T_Bomberman,point[0],point[3])!=C_Block))
 					{
-						this->getPlayer()->translation(-vitesse,0,0);
-						this->getPlayer()->setRotation(0,0,paquetMove->rotation);
+						bomberman->translation(-vitesse,0,0);
+						bomberman->setRotation(0,0,paquetMove->rotation);
 					}
 					else//envoi du paquet d'erreur
 					{
@@ -280,8 +280,8 @@ namespace GameTypeSpace
 
 					if((position==point[1]) || (collision->detect(T_Bomberman,point[1],point[2])!=C_Block && collision->detect(T_Bomberman,point[1],point[3])!=C_Block))
 					{
-						this->getPlayer()->translation(vitesse,0,0);
-						this->getPlayer()->setRotation(0,0,paquetMove->rotation);
+						bomberman->translation(vitesse,0,0);
+						bomberman->setRotation(0,0,paquetMove->rotation);
 					}
 					else//envoi du paquet d'erreur
 					{
@@ -302,8 +302,8 @@ namespace GameTypeSpace
 
 					if((position==point[3]) || (collision->detect(T_Bomberman,point[0],point[3])!=C_Block && collision->detect(T_Bomberman,point[1],point[3])!=C_Block))
 					{
-						this->getPlayer()->translation(0,vitesse,0);
-						this->getPlayer()->setRotation(0,0,paquetMove->rotation);
+						bomberman->translation(0,vitesse,0);
+						bomberman->setRotation(0,0,paquetMove->rotation);
 					}
 					else//envoi du paquet d'erreur
 					{
@@ -323,8 +323,8 @@ namespace GameTypeSpace
 
 					if((position==point[2]) || (collision->detect(T_Bomberman,point[0],point[2])!=C_Block && collision->detect(T_Bomberman,point[1],point[2])!=C_Block))
 					{
-						this->getPlayer()->translation(0,-vitesse,0);
-						this->getPlayer()->setRotation(0,0,paquetMove->rotation);
+						bomberman->translation(0,-vitesse,0);
+						bomberman->setRotation(0,0,paquetMove->rotation);
 					}
 					else//envoi du paquet d'erreur
 					{

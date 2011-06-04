@@ -31,6 +31,7 @@ typedef struct PaquetMove
     int idBomber;//id du bomberman déplacé
     double x;//x absolue du bomberman
     double y;//y absolue du bomberman
+	double rotation;//valeur de l'angle
 }PaquetMove;
 
 //Paquet d'un nouveau bonus

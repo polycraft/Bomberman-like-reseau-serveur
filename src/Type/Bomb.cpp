@@ -30,6 +30,7 @@ void Bomb::explode()
 
 void Bomb::updateTimer(unsigned int delay)
 {
+    cout << "Explosion!" << endl;
 	this->setVisible(false);
 	this->gameType->explode(this,speed,power);
 }
