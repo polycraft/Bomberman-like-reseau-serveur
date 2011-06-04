@@ -24,7 +24,7 @@ namespace GameTypeSpace
 	Classic::Classic(Server *server,Socket *socket):GameType(server,10, socket)
 	{
 		this->partTime = 60000;
-		this->waitTime = 4000;
+		this->waitTime = 10000;
 	    phaseCurrent=P_Initialisation;
 
 	    collision=new CollisionDetector(server->getMap());
