@@ -68,9 +68,9 @@ namespace GameTypeSpace
                             int t= gameType->getServer()->getMap()->getCountSpawn();
                             prevSpawn=(prevSpawn+randomSpawn)%gameType->getServer()->getMap()->getCountSpawn()+1;
 
-                            PaquetSpawn paquetSpawn={'s', Engine::Timer::getTimer()->getTime(),bomberman->getProperty<int>(PB_id),prevSpawn-1};
+                            PaquetSpawn paquetSpawn={'s', Engine::Timer::getTimer()->getTime(),bomberman->getProperty<int>(PB_id),prevSpawn-1,""};
 
-
+                            bomberman->getName().copy(paquetSpawn.name,bomberman->getName().size());
 
                             gameType->updateAllNetwork<PaquetSpawn>(paquetSpawn);
 
@@ -82,8 +82,6 @@ namespace GameTypeSpace
                             }
 
                             listSpawn.push_back(paquetSpawn);
-
-                            cout << "send spawn for " << bomberman->getProperty<int>(PB_id) << " : Spawn no " << prevSpawn << endl;
                         }
                         break;
                     }

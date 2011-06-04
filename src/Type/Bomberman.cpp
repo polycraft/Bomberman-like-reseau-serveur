@@ -76,6 +76,20 @@ void Bomberman::lostLife(int nb)
 void Bomberman::updateRecv(Socket *sock,Paquet& paquet)
 {
     gameType->updateRecvBomberman(this,sock,paquet);
+    char type=(paquet.getData())[0];
+    switch(type)
+    {
+        case 'n':
+        {
+            PaquetName *paquetName=paquet.getData<PaquetName*>();
+
+            this->setName(string(paquetName->name));
+        }
+        break;
+        default:
+
+        break;
+    }
 }
 
 void Bomberman::sendData(Paquet &paquet)
@@ -91,4 +105,14 @@ bool Bomberman::isConnected()
 void Bomberman::setConnected(bool c)
 {
     connected=c;
+}
+
+string& Bomberman::getName()
+{
+    return name;
+}
+
+void Bomberman::setName(string name)
+{
+    this->name=name;
 }
