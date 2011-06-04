@@ -42,7 +42,7 @@ namespace GameTypeSpace
 
 		void Initialisation::run()
 		{
-            if(nbReady>=1 && !waiting)
+            if(nbReady>=2 && !waiting)
             {
                 waiting=true;
                 Timer::getTimer()->addListenerOnce(this,this->gameType->getWaitingTime());
@@ -68,7 +68,9 @@ namespace GameTypeSpace
                             prevSpawn=(prevSpawn+randomSpawn)%gameType->getServer()->getMap()->getCountSpawn()+1;
 
                             PaquetSpawn paquetSpawn={'s', Engine::Timer::getTimer()->getTime(),bomberman->getProperty<int>(PB_id),prevSpawn-1};
-                            bomberman->sendData<PaquetSpawn>(&paquetSpawn);
+
+                            gameType->updateAllNetwork<PaquetSpawn>(paquetSpawn);
+
                             cout << "send spawn for " << bomberman->getProperty<int>(PB_id) << " : Spawn no " << prevSpawn << endl;
                         }
                         break;
