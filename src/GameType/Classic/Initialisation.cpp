@@ -63,6 +63,17 @@ namespace GameTypeSpace
                     {
                         case 's'://spawn
                         {
+							bomberman->setProperty<int>(PB_bombPower,2);
+							bomberman->setProperty<double>(PB_speed,0.05);
+							bomberman->setProperty<int>(PB_nbBomb,2);
+							bomberman->setProperty<int>(PB_nbBombMax,2);
+							bomberman->setProperty<int>(PB_timerBomb,2000);
+							bomberman->setProperty<int>(PB_timerPutBomb,200);
+							bomberman->setProperty<int>(PB_speedExplode,2);
+							bomberman->setProperty<int>(PB_life,2);
+							bomberman->setProperty<bool>(PB_canPutBomb,true);
+							bomberman->setProperty<int>(PB_timeInvincible,2000);
+							bomberman->setProperty<bool>(PB_invincible,false);
                             nbReady++;
                             //Calcule du nouveau spawn
                             int t= gameType->getServer()->getMap()->getCountSpawn();
