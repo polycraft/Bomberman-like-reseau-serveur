@@ -28,7 +28,7 @@ Server::Server()
     Socket *socket;
     try
     {
-        socket = new Socket(5001,TP_TCP);
+        socket = new Socket(5000,TP_TCP);
     }
     catch(ExceptionListen e)
     {

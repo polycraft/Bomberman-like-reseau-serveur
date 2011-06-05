@@ -5,6 +5,7 @@
 #include "../../Type/ExplosionFlare.h"
 #include "../../Type/Bomberman.h"
 #include "../../Type/Bomb.h"
+#include "../../Type/Bonus.h"
 #include "../../Type/Paquet.h"
 #include "../../Server.h"
 #include "../../Map.h"
@@ -153,9 +154,16 @@ namespace GameTypeSpace
                     }
                     else if(object->getType()==T_BreakableBloc)
                     {
-                        this->server->getMap()->set(NULL,x,y);
-                        object->destroy();
-                        //créer bonus
+                        EBonus random = this->randomBonus();
+
+                        PaquetBonus paquetBonus={'u', Engine::Timer::getTimer()->getTime(),random,x,y};
+                        this->updateAllNetwork<PaquetBonus>(paquetBonus);
+
+						if(random != T_None)
+						{
+                            this->server->getMap()->addObject(new Bonus(random),x,y,T_Map);
+						}
+						else this->server->getMap()->set(NULL,x,y);
                     }
                     flare->endExplose();
                 break;
@@ -170,6 +178,11 @@ namespace GameTypeSpace
                 break;
             }
 	    }
+	}
+
+    EBonus Classic::randomBonus()
+	{
+		  return (EBonus)(rand() % 4);
 	}
 
 	void Classic::destroyManagerExplosion(ManagerExplosion* manager)
@@ -233,7 +246,7 @@ namespace GameTypeSpace
 
 				PaquetMove *paquetMove=paquet.getData<PaquetMove*>();
 				//verif du deplacement
-				double vitesse=bomberman->getProperty<double>(PB_vitesse)*Timer::getTimer()->getTimePerFrame();
+				double vitesse=bomberman->getProperty<double>(PB_speed)*Timer::getTimer()->getTimePerFrame();
 				if(vitesse>8)
 				{
 					vitesse=8;

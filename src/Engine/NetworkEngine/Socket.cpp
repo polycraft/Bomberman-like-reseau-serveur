@@ -157,8 +157,7 @@ void Socket::runThread(bool *close)
         }
         else
         {
-			cout << "DDDDD" << endl;
-            this->recvData();
+			this->recvData();
         }
     /*fd_set rdfs;
     struct timeval tv;
@@ -233,13 +232,11 @@ void Socket::sendData(const char *data,unsigned int size)
 {
     if(protocole==TP_TCP)
     {
-        P();
         if(send(sock, data, size, 0) < 0)
         {
             V();
             throw ExceptionSend();
         }
-        V();
     }
     else if(protocole==TP_UDP)
     {
@@ -262,13 +259,12 @@ Paquet Socket::recvData()
     {
         int n = 0;
 
-       
+
         if((n = recv(sock, bufferRecv, sizeBufferRecv - 1, 0)) < 0)
         {
-            V();
             throw ExceptionRecv();
         }
-        
+
         if(this->isSync)
         {
             return Paquet(bufferRecv,n);

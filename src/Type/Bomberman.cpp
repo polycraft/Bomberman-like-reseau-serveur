@@ -40,9 +40,9 @@ EType Bomberman::getType()
 
 void Bomberman::updateTimer(unsigned int delay)
 {
-    if(delay==this->getProperty<int>(PB_timeInvinsible))
+    if(delay==this->getProperty<int>(PB_timeInvincible))
     {
-        this->setProperty<int>(PB_invinsible,false);
+        this->setProperty<bool>(PB_invincible,false);
         Timer::getTimer()->removeListener(this,100);
     }
     else if(delay==100)
@@ -57,13 +57,13 @@ void Bomberman::updateTimer(unsigned int delay)
 
 void Bomberman::setInvinsible(int time)
 {
-    if(this->getProperty<bool>(PB_invinsible))
+    if(this->getProperty<bool>(PB_invincible))
     {
-        Timer::getTimer()->removeListenerOnce(this,this->getProperty<int>(PB_timeInvinsible));
+        Timer::getTimer()->removeListenerOnce(this,this->getProperty<int>(PB_timeInvincible));
     }
     Timer::getTimer()->addListenerOnce(this,time);
-    this->setProperty<int>(PB_timeInvinsible,time);
-    this->setProperty<int>(PB_invinsible,true);
+    this->setProperty<int>(PB_timeInvincible,time);
+    this->setProperty<int>(PB_invincible,true);
 
     Timer::getTimer()->addListener(this,100);
 }

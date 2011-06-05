@@ -6,6 +6,7 @@
 #include "../GameType.h"
 #include "../../Engine/NetworkEngine/IObserverSocketRecv.h"
 #include "../../Engine/NetworkEngine/Socket.h"
+#include "../../Type/Bonus.h"
 
 class Server;
 class Bomberman;
@@ -53,6 +54,7 @@ namespace GameTypeSpace
 		int getWaitingTime();
 
 	private:
+        EBonus randomBonus();
 		int waitTime;
 		int partTime;
 		CollisionDetector *collision;
