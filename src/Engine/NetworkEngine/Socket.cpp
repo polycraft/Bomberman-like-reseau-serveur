@@ -141,6 +141,7 @@ void Socket::runThread(bool *close)
 {
     while(*close!=true && sock!=-1)
     {
+
 		//Nouvelle connexion
         if(this->connection==TC_Server && this->protocole==TP_TCP)
         {
@@ -155,24 +156,12 @@ void Socket::runThread(bool *close)
             }
             notifyAccept(new Socket(csock,csin,TC_Client));
         }
-        else
+        else if(!isSync)
         {
 			this->recvData();
         }
-    /*fd_set rdfs;
-    struct timeval tv;
-
-
-
-    while(*close!=true && sock!=-1)
-    {
-        tv.tv_sec = 1;
-        tv.tv_usec = 0;
-
-        FD_ZERO(&rdfs);
-        FD_SET(sock, &rdfs);
-
-        if(select(sock + 1, &rdfs, NULL, NULL, &tv) == -1)
+		/*
+		if(this->connection == TC_Server && this->protocole == TP_TCP)
         {
             throw ExceptionSelect();
         }
@@ -180,6 +169,7 @@ void Socket::runThread(bool *close)
         //un paquet est arrivé
         if(FD_ISSET(sock, &rdfs) && !isSync)
         {
+					cout << "Salut" << endl;
             //Nouvelle connexion
             if(this->connection==TC_Server && this->protocole==TP_TCP)
             {
@@ -197,8 +187,11 @@ void Socket::runThread(bool *close)
             {
                 this->recvData();
             }
-        }*/
+			}*/
+
     }
+
+	cout << "yop " << endl;
 }
 
 bool Socket::hasConnect()
@@ -232,11 +225,13 @@ void Socket::sendData(const char *data,unsigned int size)
 {
     if(protocole==TP_TCP)
     {
+        P();
         if(send(sock, data, size, 0) < 0)
         {
             V();
             throw ExceptionSend();
         }
+        V();
     }
     else if(protocole==TP_UDP)
     {
@@ -253,17 +248,25 @@ void Socket::sendData(Paquet &paquet)
     return this->sendData(paquet.getData(),paquet.getSize());
 }
 
+int Socket::recept()
+{
+    int n = 0;
+
+    if((n = recv(sock, bufferRecv, sizeBufferRecv - 1, 0)) < 0)
+    {
+        throw ExceptionRecv();
+    }
+    return n;
+}
+
 Paquet Socket::recvData()
 {
     if(protocole==TP_TCP)
     {
-        int n = 0;
+        int n = recept();
 
-
-        if((n = recv(sock, bufferRecv, sizeBufferRecv - 1, 0)) < 0)
-        {
-            throw ExceptionRecv();
-        }
+        if(this->bufferRecv[0]=='u')
+            cout << n << endl;
 
         if(this->isSync)
         {
@@ -321,9 +324,13 @@ void Socket::removeObserverAccept(IObserverSocketAccept* observer)
 
 void Socket::notifyRecv(char* s,int size)
 {
+    this->notifyRecv(Paquet(s,size));
+}
+
+void Socket::notifyRecv(Paquet paquet)
+{
     P(mutex1);
 
-    Paquet paquet(s,size);
     for (vector<IObserverSocketRecv*>::iterator it = observerRecv.begin(); it!=observerRecv.end(); ++it)
     {
         //std::cout << observerRecv.size() <<std::endl;
