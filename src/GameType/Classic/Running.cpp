@@ -81,6 +81,27 @@ namespace GameTypeSpace
                         {
                             gameType->updateNetwork(bomberman,paquet);
                         }
+
+                        int x=paquetMove->x;x=x/10-1;
+                        int y=paquetMove->y;y=y/10-1;
+
+                        if(collision->detect(T_Bomberman,x,y)==C_Bonus)
+                        {
+                            /*Bonus *bonus = dynamic_cast<Bonus*>(this->gameType->geServer()->getMap()->get(x,y));
+                            Bomberman *bomber=this->gameType->getPlayer();
+                            //Active l'effet du bonus:
+                            bonus->getEffect()->enableEffect(bomber);
+                            //arrete l'animation du bonus
+                            bonus->destroyTimeAnim();
+                            //Ajoute le bonus au bomberman
+                            bomber->addBonus(bonus);
+                            //fait disparaitre le bonus
+                            bonus->setVisible(false);*/
+                            this->gameType->getServer()->getMap()->set(NULL,x,y);
+
+                            PaquetEffect paquetEffect={'f', Engine::Timer::getTimer()->getTime(),bomberman->getProperty<int>(PB_id),x,y};
+                            this->gameType->updateAllNetwork<PaquetEffect>(paquetEffect);
+                        }
                     }
                     break;
                 }
