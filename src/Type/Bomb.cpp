@@ -17,13 +17,19 @@ Bomb::Bomb(GameType* gameType,Bomberman *owner, int time, int speed, int power):
 
 Bomb::~Bomb()
 {
-
+	
 }
 
 void Bomb::explode()
 {
     Timer::getTimer()->removeListenerOnce(this,time);
     updateTimer(time);
+}
+
+void Bomb::destroy()
+{
+	Timer::getTimer()->removeListenerOnce(this,time);
+	this->destroy();
 }
 
 void Bomb::updateTimer(unsigned int delay)

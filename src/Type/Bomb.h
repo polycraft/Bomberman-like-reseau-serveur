@@ -18,7 +18,7 @@ public:
 	void updateTimer(unsigned int);
 	Bomberman* getOwner();
 	void explode();
-
+	void destroy();
 private:
 	Bomberman* owner;
 

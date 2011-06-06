@@ -24,7 +24,7 @@ namespace GameTypeSpace
     using namespace Engine;
 	Classic::Classic(Server *server,Socket *socket):GameType(server,10, socket)
 	{
-		this->partTime = 60000;
+		this->partTime = 4000;
 		this->waitTime = 4000;
 	    phaseCurrent=P_Initialisation;
 
@@ -188,7 +188,7 @@ namespace GameTypeSpace
 
 	void Classic::destroyManagerExplosion(ManagerExplosion* manager)
 	{
-		cout << " ssss" << manager->getOwner() << endl;
+		
 	    manager->getOwner()->setProperty<int>(PB_nbBomb,manager->getOwner()->getProperty<int>(PB_nbBomb)+1);
 
 	     delete manager;

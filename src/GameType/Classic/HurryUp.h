@@ -14,6 +14,14 @@ namespace GameTypeSpace
 {
 	namespace ClassicSpace
 	{
+		enum EDirection
+		{
+			D_Haut,
+			D_Bas,
+			D_Gauche,
+			D_Droite
+		};
+
 		class HurryUp : public Running
 		{
 
@@ -25,6 +33,10 @@ namespace GameTypeSpace
 			virtual void updateTimer(unsigned int delay);
 		private:
 			int hurryTime;
+			int timeBetweenBloc;
+			int blocx;
+			int blocy;
+			EDirection direction;
 		};
 	}
 }

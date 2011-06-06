@@ -62,7 +62,7 @@ namespace Engine
 			/**
 			Change l'état de l'objet
 			**/
-			void destroy();
+			virtual void destroy();
 
 			void setTexture(Texture* noTexture);
 			void setTexture(Ressource* noTexture);
