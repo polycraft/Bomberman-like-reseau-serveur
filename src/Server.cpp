@@ -7,6 +7,7 @@
 #include "Map.h"
 #include "Type/Paquet.h"
 #include "Engine/util/Timer.h"
+#include "network/SocketBomber.h"
 
 using namespace Engine;
 using namespace std;
@@ -28,7 +29,7 @@ Server::Server()
     Socket *socket;
     try
     {
-        socket = new Socket(5001,TP_TCP);
+        socket = new SocketBomber(5001,TP_TCP);
     }
     catch(ExceptionListen e)
     {
