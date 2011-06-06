@@ -64,6 +64,7 @@ namespace Engine
 			**/
 			virtual void destroy();
 
+
 			void setTexture(Texture* noTexture);
 			void setTexture(Ressource* noTexture);
 			void setAlpha(int alpha);
