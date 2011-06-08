@@ -9,6 +9,7 @@
 #include "../../Type/Explosion.h"
 #include "../../Type/ExplosionFlare.h"
 #include "../../Type/StaticBloc.h"
+#include "../../Type/Paquet.h"
 
 using namespace Engine;
 
@@ -18,7 +19,7 @@ namespace GameTypeSpace
 	{
 		HurryUp::HurryUp(GameTypeSpace::Classic *gameType,CollisionDetector *collision)  : Running(gameType,collision)
 		{
-			this->actuTime = 20;
+			this->actuTime = 10;
 			this->blocx = 0;
 			this->blocy = 0;
 			this->blocz = 50;
@@ -64,14 +65,20 @@ namespace GameTypeSpace
 							if( type == T_BreakableBloc || type == T_Bonus)
 							{
 								this->gameType->getServer()->getMap()->addObject(new StaticBloc(), this->blocx, this->blocy, T_Dyn);
+								PaquetHurry paquetH = {'h', Timer::getTimer()->getTime(), this->blocx, this->blocy };
+								this->gameType->updateAllNetwork<PaquetHurry>(paquetH);
 							}
 							else if( type == T_Bomb)
 							{
 								this->gameType->getServer()->getMap()->addObject(new StaticBloc(), this->blocx, this->blocy, T_Dyn);
+								PaquetHurry paquetH = {'h', Timer::getTimer()->getTime(), this->blocx, this->blocy };
+								this->gameType->updateAllNetwork<PaquetHurry>(paquetH);
 							}
 							else if(type == T_Explosion)
 							{
 								Explosion* explosion = dynamic_cast<Explosion*>(this->gameType->getServer()->getMap()->get(this->blocx,this->blocy));
+								PaquetHurry paquetH = {'h', Timer::getTimer()->getTime(), this->blocx, this->blocy };
+								this->gameType->updateAllNetwork<PaquetHurry>(paquetH);
 								explosion->getExplosionFlare()->removeExplosion(explosion);
 								this->gameType->getServer()->getMap()->addObject(new StaticBloc(), this->blocx, this->blocy, T_Dyn);
 							}
@@ -79,6 +86,8 @@ namespace GameTypeSpace
 						else
 						{
 							this->gameType->getServer()->getMap()->addObject(new StaticBloc(), this->blocx, this->blocy, T_Dyn);
+							PaquetHurry paquetH = {'h', Timer::getTimer()->getTime(), this->blocx, this->blocy };
+							this->gameType->updateAllNetwork<PaquetHurry>(paquetH);
 						}
 						switch(this->direction)
 						{
