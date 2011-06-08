@@ -3,6 +3,7 @@
 
 #include "Running.h"
 #include "../../Engine/util/IObserverTimer.h"
+class StaticBloc;
 
 namespace GameTypeSpace
 {
@@ -14,13 +15,13 @@ namespace GameTypeSpace
 {
 	namespace ClassicSpace
 	{
-		enum EDirection
-		{
-			D_Haut,
-			D_Bas,
-			D_Gauche,
-			D_Droite
-		};
+			enum EDirection
+			{
+				D_Haut,
+				D_Bas,
+				D_Gauche,
+				D_Droite
+			};
 
 		class HurryUp : public Running
 		{
@@ -32,10 +33,13 @@ namespace GameTypeSpace
 			void run();
 			virtual void updateTimer(unsigned int delay);
 		private:
-			int hurryTime;
-			int timeBetweenBloc;
+			int actuTime;
 			int blocx;
 			int blocy;
+			double blocz;
+			int nbIteration;
+			int countIteration;
+			int nbFailure;//detection de la fin du hurryUp/recouvrement total
 			EDirection direction;
 		};
 	}

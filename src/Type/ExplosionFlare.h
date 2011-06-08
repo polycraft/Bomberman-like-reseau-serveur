@@ -17,6 +17,7 @@ class ExplosionFlare : public Engine::IObserverTimer
 		ExplosionFlare(int x, int y, Bomberman* owner, int speed, int power, EExplose typeExplose, GameType *gametype, ManagerExplosion *manager);
 		~ExplosionFlare();
 		void nextExplose();
+		void removeExplosion(Explosion *explosion);
 		void endExplose();
 		EExplose getType();
 		void updateTimer(unsigned int delay);

@@ -28,7 +28,7 @@ ExplosionFlare::ExplosionFlare(int x, int y, Bomberman* owner, int speed, int po
 	if(this->typeExplosion == T_Emitter)
 	{
 	    this->powercurrent=0;
-		this->listeExplosions.push_back(new Explosion(T_Emitter,x,y));
+		this->listeExplosions.push_back(new Explosion(T_Emitter,x,y, this));
 		this->gameType->getServer()->getMap()->addObject(this->listeExplosions.back(),this->x,this->y, T_Dyn);
 	}
 	else
@@ -45,9 +45,27 @@ ExplosionFlare::~ExplosionFlare()
 	vector<Explosion*>::iterator it=this->listeExplosions.begin();
 	while(it < this->listeExplosions.end())
 	{
-		(*it)->destroy();
-		this->gameType->getServer()->getMap()->set(NULL,(*it)->getX(),(*it)->getY());
-		it++;
+		if( this->gameType->getServer()->getMap()->get((*it)->getX(),(*it)->getY())->getType() == T_Explosion)
+		{
+			//(*it)->destroy();
+			this->gameType->getServer()->getMap()->set(NULL,(*it)->getX(),(*it)->getY());
+			it++;
+		}
+	}
+}
+
+void ExplosionFlare::removeExplosion(Explosion *explosion)
+{
+	vector<Explosion*>::iterator it=this->listeExplosions.begin();
+	while(it < this->listeExplosions.end())
+	{
+		
+		if( (*it) == explosion)
+		{
+			this->listeExplosions.erase(it);
+			break;
+		}
+		it++;		
 	}
 }
 
@@ -81,7 +99,7 @@ void ExplosionFlare::nextExplose()
 		    this->listeExplosions.back()->changeExplose(this->typeExplosion);
 		}
 
-        this->listeExplosions.push_back(new Explosion(T_End,x,y));
+        this->listeExplosions.push_back(new Explosion(T_End,x,y, this));
         this->gameType->getServer()->getMap()->addObject(this->listeExplosions.back(),x,y, T_Dyn);
 
 
