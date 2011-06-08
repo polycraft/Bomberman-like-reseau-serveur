@@ -109,6 +109,9 @@ void SocketBomber::annalysePaquet()
                     case 'f':
                         size=sizeof(PaquetEffect);
                         break;
+                    case 'h':
+                        size=sizeof(PaquetHurry);
+                        break;
                     default:
                         throw ExceptionRecv();
                         break;
