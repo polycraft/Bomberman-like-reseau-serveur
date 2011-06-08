@@ -46,7 +46,7 @@ Server::Server()
         gameType->update();
         continuer=engine->run();
 	}
-	Threadable::join(thread);
+	delete socket;
 }
 
 Server::~Server()

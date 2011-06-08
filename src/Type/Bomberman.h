@@ -75,6 +75,8 @@ public:
     std::string& getName();
     void setName(std::string);
 
+    Engine::Socket* getSocket();
+
 protected:
     std::map<EPropertyBomberman,Property*> property;
     Engine::Thread* thread;

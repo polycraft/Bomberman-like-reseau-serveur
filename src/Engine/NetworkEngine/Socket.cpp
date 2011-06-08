@@ -112,8 +112,8 @@ void Socket::initBuffer()
     this->bufferRecv=(char*)malloc(sizeof(char)*this->sizeBufferRecv);
     this->bufferSend=(char*)malloc(sizeof(char)*this->sizeBufferSend);
 
-    this->observerRecv=vector<IObserverSocketRecv*>();
-    this->observerAccept=vector<IObserverSocketAccept*>();
+    this->observerRecv=set<IObserverSocketRecv*>();
+    this->observerAccept=set<IObserverSocketAccept*>();
 }
 
 Socket::~Socket()
@@ -131,6 +131,9 @@ P();
     this->bufferSend=NULL;
     this->bufferRecv=NULL;
 V();
+    observerAccept.clear();
+    observerRecv.clear();
+    observerRecvSupr.clear();
 
 #ifdef WINDOWS
     Socket::end();
@@ -223,7 +226,20 @@ void Socket::sendData(Paquet &paquet)
 
 int Socket::recept()
 {
-    return recv(sock, bufferRecv, sizeBufferRecv - 1, 0);
+    int n=recv(sock, bufferRecv, sizeBufferRecv - 1, 0);
+
+    //Erreur
+    if(n<0)
+    {
+        notifyDisconnect();
+        throw ExceptionRecv();
+    }
+    //Deconnexion
+    else if(n==0)
+    {
+        this->notifyDisconnect();
+    }
+    return n;
 }
 
 Paquet Socket::recvDataSync()
@@ -232,18 +248,7 @@ Paquet Socket::recvDataSync()
     {
         int n = recept();
 
-                //Erreur
-        if(n<0)
-        {
-            notifyDisconnect();
-            throw ExceptionRecv();
-        }
-        //Deconnexion
-        else if(n==0)
-        {
-            notifyDisconnect();
-        }
-        else if(this->isSync)
+        if(n>0 && this->isSync)
         {
             return Paquet(bufferRecv,n);
         }
@@ -260,18 +265,7 @@ void Socket::recvData()
     {
         int n = recept();
 
-        //Erreur
-        if(n<0)
-        {
-            notifyDisconnect();
-            throw ExceptionRecv();
-        }
-        //Deconnexion
-        else if(n==0)
-        {
-            notifyDisconnect();
-        }
-        else if(!this->isSync)
+        if(n>0 && !this->isSync)
         {
             this->notifyRecv(bufferRecv,n);
         }
@@ -289,36 +283,22 @@ void Socket::setIsSync(bool sync)
 
 void Socket::addObserverRecv(IObserverSocketRecv* observer)
 {
-    this->observerRecv.push_back(observer);
+    this->observerRecv.insert(observer);
 }
 
 void Socket::addObserverAccept(IObserverSocketAccept* observer)
 {
-    this->observerAccept.push_back(observer);
+    this->observerAccept.insert(observer);
 }
 
 void Socket::removeObserverRecv(IObserverSocketRecv* observer)
 {
-    for (vector<IObserverSocketRecv*>::iterator it = observerRecv.begin(); it!=observerRecv.end(); ++it)
-    {
-        if(*it==observer)
-        {
-            observerRecvSupr.push_back(it);
-            break;
-        }
-    }
+    observerRecvSupr.insert(observer);
 }
 
 void Socket::removeObserverAccept(IObserverSocketAccept* observer)
 {
-    for (vector<IObserverSocketAccept*>::iterator it = observerAccept.begin(); it!=observerAccept.end(); ++it)
-    {
-        if(*it==observer)
-        {
-            observerAccept.erase(it);
-            break;
-        }
-    }
+    observerAccept.erase(observer);
 }
 
 void Socket::notifyRecv(char* s,int size)
@@ -330,20 +310,16 @@ void Socket::notifyRecv(Paquet paquet)
 {
     P(mutex1);
 
-    for (vector<IObserverSocketRecv*>::iterator it = observerRecv.begin(); it!=observerRecv.end(); ++it)
+    for (set<IObserverSocketRecv*>::iterator it = observerRecv.begin(); it!=observerRecv.end(); ++it)
     {
-        if(*it!=NULL)
-        {
-            (*it)->updateRecv(this,paquet);
-        }
+        (*it)->updateRecv(this,paquet);
     }
 
-    vector<vector<IObserverSocketRecv*>::iterator>::iterator it = observerRecvSupr.begin();
-    while(observerRecvSupr.size()!=0)
+    for (set<IObserverSocketRecv*>::iterator it = observerRecvSupr.begin(); it!=observerRecvSupr.end(); ++it)
     {
-        it=observerRecvSupr.begin();
-        observerRecvSupr.erase(it);
+        observerRecv.erase(*it);
     }
+    observerRecvSupr.clear();
     V(mutex1);
 }
 
@@ -351,27 +327,38 @@ void Socket::notifyDisconnect()
 {
     P(mutex1);
     *closeThread=true;
+    bool deleted=false;
 
-    for (vector<IObserverSocketRecv*>::iterator it = observerRecv.begin(); it!=observerRecv.end(); ++it)
+    set<IObserverSocketRecv*>::iterator itDelete = observerRecvSupr.begin();
+
+    for (set<IObserverSocketRecv*>::iterator it = observerRecv.begin(); it!=observerRecv.end(); ++it)
     {
-        if(*it!=NULL)
+        //On vérifie que l'object n'ai pas été supprimé
+        for (itDelete = observerRecvSupr.begin(); itDelete!=observerRecvSupr.end(); ++itDelete)
+        {
+            if(*it==*itDelete)
+            {
+                deleted=true;
+                break;
+            }
+        }
+
+        //Si pas supprimé
+        if(!deleted)
         {
             (*it)->updateDisconnect(this);
         }
     }
 
-    vector<vector<IObserverSocketRecv*>::iterator>::iterator it = observerRecvSupr.begin();
-    while(observerRecvSupr.size()!=0)
-    {
-        it=observerRecvSupr.begin();
-        observerRecvSupr.erase(it);
-    }
+    observerRecvSupr.clear();
+    observerRecv.clear();
+
     V(mutex1);
 }
 
 void Socket::notifyAccept(Socket *s)
 {
-    for (vector<IObserverSocketAccept*>::iterator it = observerAccept.begin(); it!=observerAccept.end(); ++it)
+    for (set<IObserverSocketAccept*>::iterator it = observerAccept.begin(); it!=observerAccept.end(); ++it)
     {
         if(*it!=NULL)
         {
