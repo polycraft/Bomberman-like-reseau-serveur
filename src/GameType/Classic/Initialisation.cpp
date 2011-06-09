@@ -24,6 +24,8 @@ namespace GameTypeSpace
 
 		void Initialisation::init()
 		{
+			listSpawn.clear();
+			cout << listSpawn.size() << endl;
 		    gameType->getServer()->getMap()->buildMap();
             randomSpawn=rand()%(gameType->getServer()->getMap()->getCountSpawn()) +1;
 			nbReady=this->gameType->getPlayerNetwork().size();
@@ -89,6 +91,7 @@ namespace GameTypeSpace
 
                             for ( it=listSpawn.begin() ; it < listSpawn.end(); it++ )
                             {
+								cout << "salut" << endl;
                                 bomberman->sendData<PaquetSpawn>(&(*it));
                             }
 

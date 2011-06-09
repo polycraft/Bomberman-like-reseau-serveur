@@ -95,7 +95,7 @@ void GameType::updateDisconnect(Socket* socket)
             Bomberman* bomberman=*it;
             playerNetwork.erase(it);
             releaseBomberman();
-
+			cout << "Client Disconnected" << endl;
             //On prévient de la deconnexion
             PaquetDeconnect paquetDeconnect={'d', Engine::Timer::getTimer()->getTime(),bomberman->getProperty<int>(PB_id)};
             updateAllNetwork<PaquetDeconnect>(paquetDeconnect);
