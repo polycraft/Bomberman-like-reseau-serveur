@@ -23,6 +23,13 @@ Bomberman::Bomberman(Socket *sock,GameType *gameType,int id):socket(sock),stop(f
 
 Bomberman::~Bomberman()
 {
+    //destruction des bonus
+	set<Bonus*>::iterator it2;
+	for(it2 = this->bonusList.begin() ; it2 != this->bonusList.end() ; it2++)
+	{
+		//delete (*it);
+	}
+
     map<EPropertyBomberman,Property*>::iterator it;
 
     for ( it=property.begin() ; it != property.end(); it++ )
@@ -122,4 +129,21 @@ void Bomberman::setName(string name)
 Socket* Bomberman::getSocket()
 {
     return socket;
+}
+
+void Bomberman::addBonus(Bonus *bonus)
+{
+	this->bonusList.insert(bonus);
+}
+
+void Bomberman::remove(Bonus *bonus)
+{
+	set<Bonus*>::iterator it;
+	for(it = this->bonusList.begin() ; it != this->bonusList.end() ; it++)
+	{
+		if((*it) == bonus)
+		{
+			//suppression a voir si besoin
+		}
+	}
 }

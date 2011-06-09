@@ -10,6 +10,7 @@
 #include <string>
 
 class GameType;
+class Bonus;
 
 
 typedef enum EPropertyBomberman
@@ -77,6 +78,9 @@ public:
 
     Engine::Socket* getSocket();
 
+    void addBonus(Bonus *bonus);
+	void remove(Bonus *bonus);
+
 protected:
     std::map<EPropertyBomberman,Property*> property;
     Engine::Thread* thread;
@@ -85,6 +89,7 @@ protected:
     GameType *gameType;
     bool connected;
     std::string name;
+    set<Bonus*> bonusList;
 };
 
 
