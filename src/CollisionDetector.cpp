@@ -20,6 +20,7 @@ ECollision CollisionDetector::detect(EType type,int x,int y)
     Type *object=map->get(x,y);
     if(object!=NULL)
     {
+		
         if(type==T_Bomberman)
         {
             switch(object->getType())

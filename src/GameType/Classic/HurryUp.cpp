@@ -44,6 +44,7 @@ namespace GameTypeSpace
 
 		void HurryUp::run()
 		{
+			Running::run();
 		}
 
 		void HurryUp::updateTimer(unsigned int delay)
@@ -56,6 +57,7 @@ namespace GameTypeSpace
 					}
 				else
 				{
+					cout<< "sdsoijfqofjnfjiqfoij" << endl;
 						this->blocz = 50;
 						EType type;
 						if(this->gameType->getServer()->getMap()->get(this->blocx,this->blocy) != NULL)

@@ -239,7 +239,7 @@ namespace GameTypeSpace
             }
             break;
 
-			case 'm'://Mouvement a accepter
+			/*case 'm'://Mouvement a accepter
 			{
 				double tmpX = bomberman->getTransX();
 				double tmpY = bomberman->getTransY();
@@ -347,7 +347,7 @@ namespace GameTypeSpace
 					}
 				}
 			}
-			break;
+			break;*/
         }
     }
 
