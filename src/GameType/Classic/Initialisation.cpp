@@ -26,7 +26,7 @@ namespace GameTypeSpace
 		{
 		    gameType->getServer()->getMap()->buildMap();
             randomSpawn=rand()%(gameType->getServer()->getMap()->getCountSpawn()) +1;
-            nbReady=0;
+			nbReady=this->gameType->getPlayerNetwork().size();
             prevSpawn=rand()%(gameType->getServer()->getMap()->getCountSpawn());
             waiting=false;
 
@@ -43,7 +43,7 @@ namespace GameTypeSpace
 
 		void Initialisation::run()
 		{
-            if(nbReady>=1 && !waiting)
+            if(nbReady>=2 && !waiting)
             {
                 waiting=true;
                 Timer::getTimer()->addListenerOnce(this,this->gameType->getWaitingTime());

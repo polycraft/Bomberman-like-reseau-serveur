@@ -19,6 +19,7 @@ namespace GameTypeSpace
 	{
 		HurryUp::HurryUp(GameTypeSpace::Classic *gameType,CollisionDetector *collision)  : Running(gameType,collision)
 		{
+			this->timeHurry = 10000;
 			this->actuTime = 10;
 			this->blocx = 0;
 			this->blocy = 0;
@@ -36,7 +37,7 @@ namespace GameTypeSpace
 
 		void HurryUp::init()
 		{
-
+			Timer::getTimer()->addListener(this,this->timeHurry);
 			Timer::getTimer()->addListener(this,this->actuTime);
 			cout << "HurryUp Running" << endl;
 			this->nextEtat();
@@ -44,10 +45,18 @@ namespace GameTypeSpace
 
 		void HurryUp::run()
 		{
+			Running::run();
 		}
 
 		void HurryUp::updateTimer(unsigned int delay)
 		{
+			if(delay == this->timeHurry)
+			{
+				Engine::Timer::getTimer()->removeListener(this,this->timeHurry);
+				Engine::Timer::getTimer()->removeListener(this,this->actuTime);
+				end(P_Next);
+			}
+
 			if(delay == this->actuTime)
 			{
 				if(blocz>=0)
@@ -56,6 +65,7 @@ namespace GameTypeSpace
 					}
 				else
 				{
+					//cout<< "sdsoijfqofjnfjiqfoij" << endl;
 						this->blocz = 50;
 						EType type;
 						if(this->gameType->getServer()->getMap()->get(this->blocx,this->blocy) != NULL)
@@ -165,6 +175,8 @@ namespace GameTypeSpace
 									{
 										//on stoppe le timer
 										Engine::Timer::getTimer()->removeListener(this,this->actuTime);
+										//changement de la phase
+										end(P_Next);
 									}
 
 								}

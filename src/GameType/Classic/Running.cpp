@@ -33,7 +33,28 @@ namespace GameTypeSpace
 
 		void Running::run()
 		{
+			for(std::set<Bomberman*,CompareBomberman>::iterator it=this->gameType->getPlayerNetwork().begin(); it!=this->gameType->getPlayerNetwork().end(); ++it)
+			{
+				double tmpx=(*it)->getTransX();
+				double tmpy=(*it)->getTransY();
+				int x=tmpx;x=x/10-1;
+				int y=tmpx;y=y/10-1;
+				//Verification de la mort de chaque joueur
+				//cout <<collision->detect(T_Bomberman,x,y) << endl;
+				//cout << (int)(this->gameType->getServer()->getMap()->get(x,y)->getType()) << endl;
+				if(collision->detect(T_Bomberman,x,y)==C_Kill)
+				{
+					cout<< "OK" << endl;
 
+				}
+				if(collision->detect(T_Bomberman,x,y)==C_Kill && (*it)->getProperty<bool>(PB_invincible)==false)
+				{
+					(*it)->setProperty<int>(PB_life, 0);
+					int idBomber = (*it)->getProperty<int>(PB_id);
+					PaquetEtat paquetEtat = {'e', Engine::Timer::getTimer()->getTime(), PB_life,0};
+					gameType->updateAllNetwork(paquetEtat);
+				}
+			} 
 		}
 
 		void Running::updateTimer(unsigned int delay)
@@ -78,6 +99,8 @@ namespace GameTypeSpace
                         //Paquet provient bien du bon joueur
                         if(paquetMove->idBomber==bomberman->getProperty<int>(PB_id))
                         {
+							bomberman->setTransX(paquetMove->x);
+							bomberman->setTransY(paquetMove->y);
                             gameType->updateNetwork(bomberman,paquet);
                         }
 

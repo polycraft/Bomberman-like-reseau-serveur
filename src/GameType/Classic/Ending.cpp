@@ -3,6 +3,7 @@
 #include "Classic.h"
 #include "../../CollisionDetector.h"
 #include "../../Engine/util/Timer.h"
+#include "../../Type/Paquet.h"
 
 namespace GameTypeSpace
 {
@@ -10,7 +11,7 @@ namespace GameTypeSpace
     using namespace Engine;
 	Ending::Ending(GameTypeSpace::Classic *gameType,CollisionDetector *collision)  : PhaseClassic(gameType,collision)
 	{
-		this->waitTime = 4000;
+		this->waitTime = 8000;
 	}
 
 	Ending::~Ending()
@@ -34,6 +35,8 @@ namespace GameTypeSpace
 	{
 			cout << "End of Ending.. Prepare to next Round" << endl;
 			Timer::getTimer()->removeListener(this,this->waitTime);
+			PaquetRound paquetRound = {'o', Timer::getTimer()->getTime()};
+			gameType->updateAllNetwork<PaquetRound>(paquetRound);
 			end(P_Next);
 	}
 
