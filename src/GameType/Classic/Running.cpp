@@ -38,14 +38,13 @@ namespace GameTypeSpace
 				double tmpx=(*it)->getTransX();
 				double tmpy=(*it)->getTransY();
 				int x=tmpx;x=x/10-1;
-				int y=tmpx;y=y/10-1;
+				int y=tmpy;y=y/10-1;
 				//Verification de la mort de chaque joueur
-				//cout <<collision->detect(T_Bomberman,x,y) << endl;
-				//cout << (int)(this->gameType->getServer()->getMap()->get(x,y)->getType()) << endl;
+				cout << x << y << endl;
+				//cout << static_cast<int>(this->gameType->getServer()->getMap()->get(x,y)->getType()) << endl;
 				if(collision->detect(T_Bomberman,x,y)==C_Kill)
 				{
 					cout<< "OK" << endl;
-
 				}
 				if(collision->detect(T_Bomberman,x,y)==C_Kill && (*it)->getProperty<bool>(PB_invincible)==false)
 				{

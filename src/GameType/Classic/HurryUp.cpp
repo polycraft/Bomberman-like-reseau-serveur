@@ -37,7 +37,7 @@ namespace GameTypeSpace
 
 		void HurryUp::init()
 		{
-			Timer::getTimer()->addListener(this,this->timeHurry);
+			//Timer::getTimer()->addListener(this,this->timeHurry);
 			Timer::getTimer()->addListener(this,this->actuTime);
 			cout << "HurryUp Running" << endl;
 			this->nextEtat();
