@@ -24,8 +24,8 @@ namespace GameTypeSpace
     using namespace Engine;
 	Classic::Classic(Server *server,Socket *socket):GameType(server,10, socket)
 	{
-		this->partTime = 4000;
-		this->waitTime = 10000;
+		this->partTime = 10000;
+		this->waitTime = 5000;
 	    phaseCurrent=P_Initialisation;
 
 	    collision=new CollisionDetector(server->getMap());

@@ -26,7 +26,7 @@ namespace GameTypeSpace
 		{
 		    gameType->getServer()->getMap()->buildMap();
             randomSpawn=rand()%(gameType->getServer()->getMap()->getCountSpawn()) +1;
-            nbReady=0;
+			nbReady=this->gameType->getPlayerNetwork().size();
             prevSpawn=rand()%(gameType->getServer()->getMap()->getCountSpawn());
             waiting=false;
 

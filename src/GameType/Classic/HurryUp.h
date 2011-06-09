@@ -33,6 +33,7 @@ namespace GameTypeSpace
 			void run();
 			virtual void updateTimer(unsigned int delay);
 		private:
+			int timeHurry;
 			int actuTime;
 			int blocx;
 			int blocy;
