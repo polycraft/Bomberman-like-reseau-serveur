@@ -2,6 +2,7 @@
 #define GAMETYPE_H
 
 #include "../Engine/NetworkEngine/IObserverSocketAccept.h"
+#include "../Engine/NetworkEngine/IObserverSocketRecv.h"
 #include "../Engine/NetworkEngine/Paquet.h"
 #include <set>
 #include "../Type/CompareBomberman.h"
@@ -14,7 +15,7 @@ class ExplosionFlare;
 class CompareBomberman;
 class ManagerExplosion;
 
-class GameType : public Engine::IObserverSocketAccept
+class GameType : public Engine::IObserverSocketAccept,public Engine::IObserverSocketRecv
 {
 
 public:
@@ -42,6 +43,7 @@ public:
 
     template <class T> void updateAllNetwork(T& paquet)
     {
+        int test=playerNetwork.size();
         for(std::set<Bomberman*,CompareBomberman>::iterator it=playerNetwork.begin(); it!=playerNetwork.end(); ++it)
         {
             if((*it)->isConnected())
@@ -55,6 +57,13 @@ public:
 
 	set<Bomberman*,CompareBomberman>& getPlayerNetwork();
 	virtual void updateRecvBomberman(Bomberman* bomberman,Engine::Socket *sock,Engine::Paquet& paquet)=0;
+
+	void updateRecv(Engine::Socket *,Engine::Paquet &){};
+	void updateDisconnect(Engine::Socket* socket);
+
+	void readBomberman();
+	void releaseBomberman();
+
 protected:
     Server* server;
     Engine::Thread* thread;
@@ -63,6 +72,7 @@ protected:
     bool stop;
 private:
 	int partTime;
+	pthread_mutex_t mutex;
 };
 
 

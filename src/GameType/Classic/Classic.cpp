@@ -25,7 +25,7 @@ namespace GameTypeSpace
 	Classic::Classic(Server *server,Socket *socket):GameType(server,10, socket)
 	{
 		this->partTime = 4000;
-		this->waitTime = 4000;
+		this->waitTime = 10000;
 	    phaseCurrent=P_Initialisation;
 
 	    collision=new CollisionDetector(server->getMap());
@@ -115,7 +115,7 @@ namespace GameTypeSpace
 	    int tmpY=bomb->getTransY();tmpY=tmpY/10-1;
 
 	    this->server->getMap()->set(NULL,tmpX,tmpY);
-	    
+
 
 	    new ManagerExplosion(tmpX,tmpY,bomb->getOwner(), speed, power, this);
 		delete bomb;
@@ -188,7 +188,7 @@ namespace GameTypeSpace
 
 	void Classic::destroyManagerExplosion(ManagerExplosion* manager)
 	{
-		
+
 	    manager->getOwner()->setProperty<int>(PB_nbBomb,manager->getOwner()->getProperty<int>(PB_nbBomb)+1);
 
 	     delete manager;

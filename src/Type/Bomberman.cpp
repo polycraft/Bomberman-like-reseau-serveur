@@ -30,7 +30,9 @@ Bomberman::~Bomberman()
         delete (*it).second;
     }
     stop=true;
-    Threadable::join(thread);
+    //Threadable::join(thread);
+    delete socket;
+
 }
 
 EType Bomberman::getType()
@@ -115,4 +117,9 @@ string& Bomberman::getName()
 void Bomberman::setName(string name)
 {
     this->name=name;
+}
+
+Socket* Bomberman::getSocket()
+{
+    return socket;
 }
