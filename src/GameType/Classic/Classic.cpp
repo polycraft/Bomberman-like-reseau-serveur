@@ -352,6 +352,12 @@ namespace GameTypeSpace
         }
     }
 
+	ClassicSpace::EPhase Classic::getPhaseCurrent()
+	{
+		return this->phaseCurrent;
+	}
+
+
 	int Classic::getWaitingTime()
 	{
 		return this->waitTime;

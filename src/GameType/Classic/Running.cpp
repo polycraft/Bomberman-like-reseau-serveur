@@ -34,6 +34,7 @@ namespace GameTypeSpace
 
 		void Running::run()
 		{
+			int nbDead=0;
 			for(std::set<Bomberman*,CompareBomberman>::iterator it=this->gameType->getPlayerNetwork().begin(); it!=this->gameType->getPlayerNetwork().end(); ++it)
 			{
 				double tmpx=(*it)->getTransX();
@@ -41,19 +42,26 @@ namespace GameTypeSpace
 				int x=tmpx;x=x/10-1;
 				int y=tmpy;y=y/10-1;
 				//Verification de la mort de chaque joueur
-				cout << x << y << endl;
+				//cout << x << y << endl;
 				//cout << static_cast<int>(this->gameType->getServer()->getMap()->get(x,y)->getType()) << endl;
-				if(collision->detect(T_Bomberman,x,y)==C_Kill)
-				{
-					cout<< "OK" << endl;
-				}
 				if(collision->detect(T_Bomberman,x,y)==C_Kill && (*it)->getProperty<bool>(PB_invincible)==false)
 				{
 					(*it)->setProperty<int>(PB_life, 0);
 					int idBomber = (*it)->getProperty<int>(PB_id);
-					PaquetEtat paquetEtat = {'e', Engine::Timer::getTimer()->getTime(), PB_life,0};
+					PaquetEtat paquetEtat = {'e', Engine::Timer::getTimer()->getTime(), idBomber, PB_life,0};
 					gameType->updateAllNetwork(paquetEtat);
 				}
+				//si est mort
+				if((*it)->getProperty<int>(PB_life) <= 0)
+				{
+					nbDead++;
+				}
+				
+			}
+
+			if(nbDead >= this->gameType->getPlayerNetwork().size())
+			{
+				end(P_Ending);
 			}
 		}
 

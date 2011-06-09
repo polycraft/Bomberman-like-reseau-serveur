@@ -45,6 +45,7 @@ namespace GameTypeSpace
 
 		void HurryUp::run()
 		{
+
 			Running::run();
 		}
 
@@ -52,7 +53,7 @@ namespace GameTypeSpace
 		{
 			if(delay == this->timeHurry)
 			{
-				Engine::Timer::getTimer()->removeListener(this,this->timeHurry);
+				//Engine::Timer::getTimer()->removeListener(this,this->timeHurry);
 				Engine::Timer::getTimer()->removeListener(this,this->actuTime);
 				end(P_Next);
 			}
@@ -99,6 +100,34 @@ namespace GameTypeSpace
 							PaquetHurry paquetH = {'h', Timer::getTimer()->getTime(), this->blocx, this->blocy };
 							this->gameType->updateAllNetwork<PaquetHurry>(paquetH);
 						}
+						int nbDead =0;
+						for(std::set<Bomberman*,CompareBomberman>::iterator it=this->gameType->getPlayerNetwork().begin(); it!=this->gameType->getPlayerNetwork().end(); ++it)
+						{
+							double tmpx=(*it)->getTransX();
+							double tmpy=(*it)->getTransY();
+							int x=tmpx;x=x/10-1;
+							int y=tmpy;y=y/10-1;
+							//Verification de la mort de chaque joueur
+							if( (this->blocx == x) && (this->blocy == y) && (*it)->getProperty<bool>(PB_invincible)==false)
+							{
+								(*it)->setProperty<int>(PB_life, 0);
+								int idBomber = (*it)->getProperty<int>(PB_id);
+								PaquetEtat paquetEtat = {'e', Engine::Timer::getTimer()->getTime(), idBomber, PB_life,0};
+								gameType->updateAllNetwork(paquetEtat);
+							}
+
+							if((*it)->getProperty<int>(PB_life) <= 0)
+							{
+								nbDead++;
+							}
+						}
+						
+						if(nbDead >= this->gameType->getPlayerNetwork().size())
+						{
+							Engine::Timer::getTimer()->removeListener(this,this->actuTime);
+							end(P_Next);
+						}
+
 						switch(this->direction)
 						{
 							case D_Haut:
@@ -166,7 +195,7 @@ namespace GameTypeSpace
 							case D_Gauche:
 								if(this->blocx <= -1+ nbIteration)//verif changemant de direction
 								{
-									cout << nbFailure << endl;
+									//cout << nbFailure << endl;
 									this->direction = D_Haut;
 									this->nbIteration -=1;//important sinon difference de 1carré a chaque tours
 									this->countIteration++;

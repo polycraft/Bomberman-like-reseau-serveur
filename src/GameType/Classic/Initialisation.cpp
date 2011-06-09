@@ -45,7 +45,7 @@ namespace GameTypeSpace
 
 		void Initialisation::run()
 		{
-            if(nbReady>=2 && !waiting)
+            if(nbReady>=1 && !waiting)
             {
                 waiting=true;
                 Timer::getTimer()->addListenerOnce(this,this->gameType->getWaitingTime());

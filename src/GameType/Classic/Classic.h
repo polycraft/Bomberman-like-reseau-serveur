@@ -50,6 +50,7 @@ namespace GameTypeSpace
 
         virtual void updateRecvBomberman(Bomberman* bomberman,Engine::Socket *sock,Engine::Paquet& paquet);
 
+		ClassicSpace::EPhase getPhaseCurrent();
 		int getPartTime();
 		int getWaitingTime();
 
