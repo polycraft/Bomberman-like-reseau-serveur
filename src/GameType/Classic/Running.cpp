@@ -71,7 +71,6 @@ namespace GameTypeSpace
                 {
                     case 'b'://Bombe
                     {
-
                         PaquetBomb *paquetBomb=paquet.getData<PaquetBomb*>();
 
                          //Paquet provient bien du bon joueur
