@@ -5,6 +5,7 @@
 #include "../../Engine/util/Timer.h"
 #include "../../Type/Paquet.h"
 #include "../../Type/Bomb.h"
+#include "../../Type/Effects/Effect.h"
 #include "../../Server.h"
 #include "../../Map.h"
 
@@ -53,7 +54,7 @@ namespace GameTypeSpace
 					PaquetEtat paquetEtat = {'e', Engine::Timer::getTimer()->getTime(), PB_life,0};
 					gameType->updateAllNetwork(paquetEtat);
 				}
-			} 
+			}
 		}
 
 		void Running::updateTimer(unsigned int delay)
@@ -75,6 +76,9 @@ namespace GameTypeSpace
                          //Paquet provient bien du bon joueur
                         if(paquetBomb->idBomber==bomberman->getProperty<int>(PB_id))
                         {
+                            paquetBomb->explodeTime=bomberman->getProperty<int>(PB_timerBomb);
+                            paquetBomb->vitesseExplode=bomberman->getProperty<int>(PB_speedExplode);
+                            paquetBomb->power=bomberman->getProperty<int>(PB_bombPower);
                             cout << "bomb !"<< endl;
                             Bomb* bomb=new Bomb(
                                         this->gameType,
@@ -109,16 +113,12 @@ namespace GameTypeSpace
 
                         if(collision->detect(T_Bomberman,x,y)==C_Bonus)
                         {
-                            /*Bonus *bonus = dynamic_cast<Bonus*>(this->gameType->geServer()->getMap()->get(x,y));
-                            Bomberman *bomber=this->gameType->getPlayer();
+                            Bonus *bonus = dynamic_cast<Bonus*>(this->gameType->getServer()->getMap()->get(x,y));
                             //Active l'effet du bonus:
-                            bonus->getEffect()->enableEffect(bomber);
-                            //arrete l'animation du bonus
-                            bonus->destroyTimeAnim();
+                            bonus->getEffect()->enableEffect(bomberman);
                             //Ajoute le bonus au bomberman
-                            bomber->addBonus(bonus);
+                            bomberman->addBonus(bonus);
                             //fait disparaitre le bonus
-                            bonus->setVisible(false);*/
                             this->gameType->getServer()->getMap()->set(NULL,x,y);
 
                             PaquetEffect paquetEffect={'f', Engine::Timer::getTimer()->getTime(),bomberman->getProperty<int>(PB_id),x,y};
