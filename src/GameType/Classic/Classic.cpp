@@ -157,15 +157,16 @@ namespace GameTypeSpace
                     {
                         EBonus random = this->randomBonus();
 
-                        PaquetBonus paquetBonus={'u', Engine::Timer::getTimer()->getTime(),random,x,y};
-                        this->updateAllNetwork<PaquetBonus>(paquetBonus);
-
 						if(random != T_None)
 						{
                             this->server->getMap()->addObject(new Bonus(random),x,y,T_Map);
 						}
 						else this->server->getMap()->set(NULL,x,y);
+
+                        PaquetBonus paquetBonus={'u', Engine::Timer::getTimer()->getTime(),random,x,y};
+                        updateAllNetwork<PaquetBonus>(paquetBonus);
                     }
+                    break;
                     flare->endExplose();
                 break;
                 case C_Kill:
