@@ -105,6 +105,7 @@ namespace GameTypeSpace
                         {
 							bomberman->setTransX(paquetMove->x);
 							bomberman->setTransY(paquetMove->y);
+							bomberman->setRotation(0,0,paquetMove->rotation);
                             gameType->updateNetwork(bomberman,paquet);
                         }
 
